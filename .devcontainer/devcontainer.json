@@ -13,7 +13,9 @@
         "svipas.code-autocomplete",
         "ecmel.vscode-html-css",
         "syler.sass-indented",
-        "mrmlnc.vscode-scss"
+        "mrmlnc.vscode-scss",
+        "zignd.html-css-class-completion",
+        "esbenp.prettier-vscode",
     ]
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
