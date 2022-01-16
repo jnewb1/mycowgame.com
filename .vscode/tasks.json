@@ -6,7 +6,7 @@
         {
             "label": "start react server",
             "type": "shell",
-            "command": "yarn run start",
+            "command": "yarn start",
             "options": {
                 "cwd": "${workspaceFolder}/app"
             },
