@@ -1,8 +1,14 @@
-
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    width: 200px;
+    margin: 0px;
+    padding: 0px;
+}
 
 .button {
-    width: 50 vw;
-    height: 15 vh;
+    width: 50vw;
+    height: 10vh;
     background-color: white;
     border: 1px black solid;
+    border-radius: 15px;
 }
