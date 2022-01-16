@@ -9,7 +9,8 @@
             "command": "yarn run start",
             "options": {
                 "cwd": "${workspaceFolder}/app"
-            }
+            },
+            "problemMatcher": []
         }
     ]
 }
