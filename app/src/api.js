@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api_server } from './settings';
-
+import useDeepCompareEffect from 'use-deep-compare-effect'
 
 let fetchFunc = (url, options = {}) => {
     let finalOptions = Object.assign(options, {})
@@ -75,7 +75,7 @@ const postAction = (params) => {
     })
 }
 
-const usePost = (func, params = {}) => {
+const post = (func, params = {}) => {
     return func(params).then(response => {
         if (response.ok) {
             return response.json().then((data) => { return { response, data, errors: [] } })
@@ -98,8 +98,8 @@ const usePost = (func, params = {}) => {
 
 
 const useGame = (pk) => useGet(getGame, { pk })
-const createGame = () => usePost(postGame, {})
-const createPlayer = (gamePK, player) => usePost(postPlayer, { gamePK, player })
-const performAction = (gamePK, player, action) => usePost(postAction, { gamePK, player, action })
+const createGame = () => post(postGame, {})
+const createPlayer = (gamePK, player) => post(postPlayer, { gamePK, player })
+const performAction = (gamePK, player, action) => post(postAction, { gamePK, player, action })
 
 export { useGame, createGame, createPlayer, performAction }
