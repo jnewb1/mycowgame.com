@@ -13,7 +13,7 @@ import Nav from "./nav"
 function App() {
     return (
         <>
-            <Nav></Nav>
+            <Nav/>
             <Routes>
                 <Route path="/" element={<Homepage />} />
                 <Route path="/game/:id" element={<p>hello justin</p>} />

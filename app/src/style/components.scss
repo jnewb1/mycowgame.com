@@ -1,14 +1,28 @@
-h1, h2, h3, h4, h5, h6 {
-    text-align: center;
-    width: 200px;
-    margin: 0px;
-    padding: 0px;
+@import "./theme";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+  width: 200px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .button {
-    width: 50vw;
-    height: 10vh;
-    background-color: white;
-    border: 1px black solid;
-    border-radius: 15px;
+  width: 55vw;
+  height: 10vh;
+  background-color: $color-primary;
+  border: 1px black solid;
+  border-radius: 15px;
+
+  font-size: 20px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-primary-hover;
+  }
 }
