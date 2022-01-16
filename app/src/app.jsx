@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 // Style
 import "./style/components.scss"
+import "./style/layouts.scss"
 
 // Custom Components
 import Homepage from "./homepage/homepage";
