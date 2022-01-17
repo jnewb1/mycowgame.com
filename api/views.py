@@ -23,8 +23,8 @@ class GameViewSet(mixins.CreateModelMixin,
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=['post'], url_path='new-player')
-    def new_player(self, request, pk=None):
+    @action(detail=True, methods=['post'], url_path='add-player')
+    def add_player(self, request, pk=None):
         game = self.get_object()
         serializer = GamePlayerSerializer(data=request.data)
         if serializer.is_valid():
