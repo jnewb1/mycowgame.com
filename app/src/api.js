@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { api_server } from './settings';
 import useDeepCompareEffect from 'use-deep-compare-effect'
 
@@ -19,9 +19,15 @@ const useGet = (func, params = {}) => {
     let [errors, setErrors] = useState(null);
     let [loaded, setLoaded] = useState(false);
 
+    let [u, setU] = useState(false);
+
+    const update = () => {
+        setU(u => !u)
+    }
+
     useDeepCompareEffect(() => {
         func(params).then(response => setResponse(response))
-    }, [func, params])
+    }, [func, params, u])
 
     useEffect(() => {
         if (response) {
@@ -48,30 +54,50 @@ const useGet = (func, params = {}) => {
         }
     }, [response])
 
-    return { data, response, errors, loaded }
+    return { data, response, errors, loaded, update }
 }
 
 
 const postGame = (params) => {
     return fetchFunc(`${api_server}games/`, {
         body: JSON.stringify({}),
-        method: "POST"
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
     })
 }
 
-const postPlayer = (params) => {
-    const { gamePK, player } = params;
-    return fetchFunc(`${api_server}games/${gamePK}/new-player/`, {
-        body: JSON.stringify({ player }),
-        method: "POST"
+const postAddPlayer = (params) => {
+    const { gamePK, name } = params;
+    return fetchFunc(`${api_server}games/${gamePK}/add-player/`, {
+        body: JSON.stringify({ name }),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
     })
 }
 
-const postAction = (params) => {
+const postRemovePlayer = (params) => {
+    const { gamePK, name } = params;
+    return fetchFunc(`${api_server}games/${gamePK}/remove-player/`, {
+        body: JSON.stringify({ name }),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+}
+
+const postPlayerAction = (params) => {
     const { gamePK, player, action } = params;
     return fetchFunc(`${api_server}games/${gamePK}/player-action/`, {
         body: JSON.stringify({ player, action }),
-        method: "POST"
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
     })
 }
 
@@ -99,7 +125,10 @@ const post = (func, params = {}) => {
 
 const useGame = (pk) => useGet(getGame, { pk })
 const createGame = () => post(postGame, {})
-const createPlayer = (gamePK, player) => post(postPlayer, { gamePK, player })
-const performAction = (gamePK, player, action) => post(postAction, { gamePK, player, action })
 
-export { useGame, createGame, createPlayer, performAction }
+const addPlayer = (gamePK, name) => post(postAddPlayer, { gamePK, name })
+const removePlayer = (gamePK, name) => post(postRemovePlayer, { gamePK, name })
+
+const playerAction = (gamePK, player, action) => post(postPlayerAction, { gamePK, player, action })
+
+export { useGame, createGame, addPlayer, removePlayer, playerAction }

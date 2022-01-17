@@ -16,7 +16,7 @@ function App() {
             <Nav/>
             <Routes>
                 <Route path="/" element={<Homepage />} />
-                <Route path="/game/:id" element={<p>hello justin</p>} />
+                <Route path="/game/:id" element={<Game />} />
             </Routes>
         </>
     );

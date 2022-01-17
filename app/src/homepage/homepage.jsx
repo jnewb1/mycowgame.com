@@ -6,7 +6,7 @@ function Homepage() {
 
     const createNewGame = () => {
         createGame().then(({ data }) => {
-            navigate.to(`/game/${data.pk}`)
+            navigate(`/game/${data.pk}`)
         })
     }
 
