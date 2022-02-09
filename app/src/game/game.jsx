@@ -2,12 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { addPlayer, removePlayer, playerAction, useGame } from "../api";
 
-import "./game.scss";
-import PlayerCard from "./playercard";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-
 function Game() {
   const { id } = useParams();
 
@@ -82,13 +76,6 @@ function Game() {
       </div>
     </>
   );
-}
-
-{
-  /* <div className="row margin-large">
-        <button className="button">Add Player</button>
-      </div>
-      <PlayerCard /> */
 }
 
 export default Game;
