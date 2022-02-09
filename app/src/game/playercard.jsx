@@ -1,17 +1,70 @@
 import "./game.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHorseHead,
+  faChurch,
+  faSkull,
+} from "@fortawesome/free-solid-svg-icons";
 
-function PlayerCard() {
+import { addPlayer, removePlayer, playerAction, useGame } from "../api";
+
+function PlayerCard(props) {
+  const { gameData, player, forceUpdate } = props;
+
+  const onRemovePlayer = (name) => {
+    removePlayer(gameData.pk, name).then(({ data }) => {
+      forceUpdate();
+    });
+  };
+
+  const onPlayerAction = (name, action) => {
+    playerAction(gameData.pk, name, action).then(({ data }) => {
+      forceUpdate();
+    });
+  };
+
   return (
     <>
-      <div className="row margin-small">
-        <select className="combo-box">
-          <option value="1">My Cow! (+1)</option>
-          <option value="2">Marry My Cows! (x2)</option>
-          <option value="3">Kill Your Cows! (=0)</option>
-        </select>
+      <div className="margin-small row">
+        <div className="" id="player_card_container">
+          {/* Name and Score */}
+          <div className="row" id="player_card_name_score">
+            <div>
+              {player.name}: {player.points}
+            </div>
+
+            <button
+              className="error-button"
+              id="player_card_delete_button"
+              onClick={() => onRemovePlayer(player.name)}
+            >
+              DELETE
+            </button>
+          </div>
+
+          {/* My Cow Buttons */}
+          <div className="row margin-small">
+            <button
+              className="button player-card-action-button"
+              onClick={() => onPlayerAction(player.name, "My Cow")}
+            >
+              <FontAwesomeIcon icon={faHorseHead} />
+            </button>
+            <button
+              className="button player-card-action-button"
+              onClick={() => onPlayerAction(player.name, "Marry My Cows")}
+            >
+              <FontAwesomeIcon icon={faChurch} />
+            </button>
+            <button
+              className="button player-card-action-button"
+              onClick={() => onPlayerAction(player.name, "Kill Your Cows")}
+            >
+              <FontAwesomeIcon icon={faSkull} />
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

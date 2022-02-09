@@ -13,8 +13,32 @@ h6 {
 }
 
 .button {
+  background-color: $color-primary;
+  border: 1px black solid;
+  border-radius: 3px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-primary-hover;
+  }
+}
+
+.error-button {
+  background-color: $color-error;
+  border: 1px $color-error solid;
+  border-radius: 3px;
+
+  color: $color-primary;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-error-hover;
+  }
+}
+
+.main-menu-button {
   width: 55vw;
-  height: 10vh;
+  height: 7.5vh;
   background-color: $color-primary;
   border: 1px black solid;
   border-radius: 15px;
