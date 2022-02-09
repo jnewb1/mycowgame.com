@@ -22,10 +22,8 @@ def marry_my_cows(game, player):
 
 
 def kill_your_cows(game, player):
-    for other_player in game.players.all():
-        if other_player.id != player.id:
-            other_player.points = 0
-            other_player.save()
+    player.points = 0
+    player.save()
 
 
 def my_cow(game, player):
