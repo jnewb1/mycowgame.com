@@ -25,6 +25,9 @@ $player_name_input_padding: 4px;
   font-size: $player_name_input_height;
   width: 20vw;
   padding: $player_name_input_padding 0px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 // Player Card
@@ -40,7 +43,7 @@ $player_name_input_padding: 4px;
   width: 100%;
   font-size: 24px;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 #player_card_delete_button {

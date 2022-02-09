@@ -24,9 +24,9 @@ function Homepage() {
         </button>
       </div>
 
-      <div className="row margin-small">
+      {/* <div className="row margin-small">
         <button className="main-menu-button">How To Play</button>
-      </div>
+      </div> */}
     </>
   );
 }
