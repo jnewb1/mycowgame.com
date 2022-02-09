@@ -65,17 +65,12 @@ function Game() {
       </div>
 
       {gameData.players.map((player) => (
-        // <div className="row margin-small">
-        //   {player.name} {player.points}
-        //   {gameData.actions.map((action) => (
-        //     <div onClick={() => onPlayerAction(player.name, action.name)}>
-        //       {action.name}
-        //     </div>
-        //   ))}
-        //   <div onClick={() => onRemovePlayer(player.name)}>Delete</div>
-        // </div>
-
-        <PlayerCard gameData={gameData} player={player} forceUpdate={forceUpdate}></PlayerCard>
+        <PlayerCard
+          key={player.name}
+          gameData={gameData}
+          player={player}
+          forceUpdate={forceUpdate}
+        ></PlayerCard>
       ))}
     </>
   );

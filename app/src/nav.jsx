@@ -1,7 +1,18 @@
+import "./nav.scss";
+import { useNavigate } from "react-router-dom";
+
 function Nav() {
+  const navigate = useNavigate();
+
   return (
     <>
-      <div className="row margin-small">
+      <div
+        id="navbar"
+        className="row margin-small"
+        onClick={() => {
+          navigate("/");
+        }}
+      >
         <h1>MY COWS</h1>
       </div>
     </>

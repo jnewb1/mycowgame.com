@@ -19,7 +19,9 @@ function Homepage() {
       </div>
 
       <div className="row margin-small">
-        <button className="main-menu-button">Join Existing Game</button>
+        <button className="main-menu-button" onClick={() => navigate("/join")}>
+          Join Existing Game
+        </button>
       </div>
 
       <div className="row margin-small">
