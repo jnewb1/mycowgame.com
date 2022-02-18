@@ -1,3 +1,4 @@
+import json
 from . import *
 import os
 
@@ -17,13 +18,12 @@ DATABASES = {
 }
 
 
-def get_environ_list(k):
-    return os.environ[k].split(",") if k in os.environ.keys() else []
+def get_environ_json(k, default=[]):
+    return json.loads(os.environ[k]) if k in os.environ else default
 
 
-CORS_ALLOWED_ORIGINS = get_environ_list("CORS_ALLOWED_ORIGINS")
-CORS_ALLOWED_ORIGIN_REGEXES = get_environ_list("CORS_ALLOWED_ORIGIN_REGEXES")
+CORS_ALLOWED_ORIGINS = get_environ_json("CORS_ALLOWED_ORIGINS", [])
+CORS_ALLOWED_ORIGIN_REGEXES = get_environ_json(
+    "CORS_ALLOWED_ORIGIN_REGEXES", [])
 
-ALLOWED_HOSTS = get_environ_list("ALLOWED_HOSTS")
-
-print(CORS_ALLOWED_ORIGINS, CORS_ALLOWED_ORIGIN_REGEXES)
+ALLOWED_HOSTS = get_environ_json("ALLOWED_HOSTS", [])
