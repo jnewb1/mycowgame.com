@@ -52,13 +52,19 @@ function PlayerCard(props) {
               <FontAwesomeIcon icon={faHorseHead} />
             </button>
             <button
-              className="button player-card-action-button"
+              className={
+                "button player-card-action-button" +
+                (player.points > 1 ? "" : " disabled")
+              }
               onClick={() => onPlayerAction(player.name, "Marry My Cows")}
             >
               <FontAwesomeIcon icon={faChurch} />
             </button>
             <button
-              className="button player-card-action-button"
+              className={
+                "button player-card-action-button" +
+                (player.points > 0 ? "" : " disabled")
+              }
               onClick={() => onPlayerAction(player.name, "Kill Your Cows")}
             >
               <FontAwesomeIcon icon={faSkull} />
