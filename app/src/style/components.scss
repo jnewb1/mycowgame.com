@@ -53,6 +53,21 @@ h6 {
   }
 }
 
+.small-menu-button {
+  width: 30vw;
+  height: 7.5vh;
+  background-color: $color-primary;
+  border: 1px black solid;
+  border-radius: 15px;
+
+  font-size: 20px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-primary-hover;
+  }
+}
+
 .combo-box {
   border: 1px black solid;
   border-radius: 5px;

@@ -7,16 +7,10 @@ import {
   faSkull,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { addPlayer, removePlayer, playerAction, useGame } from "../api";
+import { playerAction } from "../api";
 
 function PlayerCard(props) {
-  const { gameData, player, forceUpdate } = props;
-
-  const onRemovePlayer = (name) => {
-    removePlayer(gameData.pk, name).then(({ data }) => {
-      forceUpdate();
-    });
-  };
+  const { gameData, player, forceUpdate, onDeleteRequest } = props;
 
   const onPlayerAction = (name, action) => {
     playerAction(gameData.pk, name, action).then(({ data }) => {
@@ -37,7 +31,7 @@ function PlayerCard(props) {
             <button
               className="error-button"
               id="player_card_delete_button"
-              onClick={() => onRemovePlayer(player.name)}
+              onClick={() => onDeleteRequest(player.name)}
             >
               DELETE
             </button>
