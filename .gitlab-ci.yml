@@ -1,0 +1,46 @@
+include:
+  - project: 'jnewb-bclaw/deployment'
+    ref: main
+    file: 'gitlab-ci-base.yml'
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+      variables:
+        ENVIRONMENT: "testing"
+        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://testing.mycowgame.com/"
+    - if: $CI_COMMIT_BRANCH == "staging"
+      variables:
+        ENVIRONMENT: "staging"
+        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://staging.mycowgame.com/"
+    - if: $CI_COMMIT_BRANCH == "main"
+      variables:
+        ENVIRONMENT: "production"
+        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://mycowgame.com/"
+
+deploy-testing:
+  extends:
+    - .deploy
+  environment:
+    name: testing
+    url: https://testing.mycowgame.com
+  only:
+    - develop
+
+deploy-staging:
+  extends:
+    - .deploy
+  environment:
+    name: staging
+    url: https://staging.mycowgame.com
+  only:
+    - staging
+
+deploy-production:
+  extends:
+    - .deploy
+  environment:
+    name: production
+    url: https://mycowgame.com
+  only:
+    - main
