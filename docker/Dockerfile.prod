@@ -10,8 +10,5 @@ WORKDIR /code
 
 # ENV PYTHONPATH /app
 
-ENV DJANGO_SETTINGS_MODULE=app.settings.development
-RUN python manage.py migrate
-RUN python manage.py runserver 0.0.0.0:8000
-
-CMD sleep 1000
+ENV DJANGO_SETTINGS_MODULE=app.settings.development 
+CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
