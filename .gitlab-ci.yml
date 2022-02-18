@@ -20,7 +20,7 @@ deploy-testing:
     - .deploy
   environment:
     name: testing
-    url: https://api.testing.meme-creator.com
+    url: https://api.testing.mycowgame.com
   only:
     - develop
 
@@ -29,7 +29,7 @@ deploy-staging:
     - .deploy
   environment:
     name: staging
-    url: https://api.staging.meme-creator.com
+    url: https://api.staging.mycowgame.com
   only:
     - staging
 
@@ -38,7 +38,7 @@ deploy-production:
     - .deploy
   environment:
     name: production
-    url: https://api.meme-creator.com
+    url: https://api.mycowgame.com
   only:
     - main
 
