@@ -1,0 +1,36 @@
+server {
+  listen 80;
+  root /usr/share/nginx/html;
+  gzip on;
+  gzip_types text/css application/javascript application/json image/svg+xml;
+  gzip_comp_level 9;
+  etag on;
+  
+  auth_basic $AUTH_MODE;
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  
+  access_log off;
+  error_log off;
+  
+  location ~* \.(?:manifest|appcache|html?|xml|json)$ {
+    expires -1;
+  }
+
+  location ~* \.(?:css|js)$ {
+    try_files $uri =404;
+    expires 1y;
+    add_header Cache-Control "public";
+  }
+
+  # Any route containing a file extension (e.g. /devicesfile.js)
+  location ~ ^.+\..+$ {
+    try_files $uri =404;
+  }
+
+  location / {
+    add_header Cache-Control no-cache;
+    expires 0;
+    index index.html index.htm;
+    try_files $uri $uri/ /index.html;
+  }
+}
