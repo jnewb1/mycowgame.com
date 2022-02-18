@@ -13,7 +13,7 @@ import Nav from "./nav";
 import HowToPlay from "./how_to_play/how_to_play";
 
 function App() {
-  const TITLE = "My Cow Game";
+  const TITLE = "My Cow Game - The competitive cow-collecting road trip game";
   const DESCRIPTION =
     "The best road trip game, whether you're in a city or the middle of nowhere. Score points by spotting, marrying and killing cows (and other large animals)";
 

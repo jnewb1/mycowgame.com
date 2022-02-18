@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { createGame } from "../api";
 
+import "./homepage.scss";
+
 function Homepage() {
   const navigate = useNavigate();
 
@@ -12,6 +14,10 @@ function Homepage() {
 
   return (
     <>
+      <div className="row">
+        <h1 id="homepage_subtitle">The cow-collecting road trip game</h1>
+      </div>
+
       <div className="row margin-medium">
         <button className="main-menu-button" onClick={createNewGame}>
           Create New Game
