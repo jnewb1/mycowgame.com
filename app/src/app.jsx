@@ -23,7 +23,7 @@ function App() {
         <title>{TITLE}</title>
         <meta name="description" content={DESCRIPTION} />
         <meta property="og:title" content={TITLE} />
-        {/* <meta property="og:image" content="/cow.jpg" /> */}
+        <link rel="canonical" href="/" />
       </MetaTags>
 
       <Nav />
