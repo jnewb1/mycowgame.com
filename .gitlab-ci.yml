@@ -1,4 +1,4 @@
-include:
+  include:
   - project: 'jnewb-bclaw/deployment'
     ref: main
     file: 'gitlab-ci-base.yml'
