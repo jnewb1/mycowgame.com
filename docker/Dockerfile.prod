@@ -1,17 +1,45 @@
-FROM python:3.7-buster
+FROM python:3.7-alpine as builder
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+WORKDIR /app
 
-COPY ./ /code/
-WORKDIR /code
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# RUN pip install pylint autopep8 pytest pytest-django pylint-django
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
 
-# ENV PYTHONPATH /app
+RUN apk update \
+    && apk add jpeg-dev zlib-dev libmagic libffi-dev
 
-ENV DJANGO_SETTINGS_MODULE=app.settings.development
-RUN python manage.py migrate
-RUN python manage.py runserver 0.0.0.0:8000
+COPY ./requirements.txt .
+RUN pip install -U pip
+RUN pip wheel --wheel-dir /app/wheels gunicorn psycopg2
+RUN pip wheel --wheel-dir /app/wheels -r requirements.txt
 
-CMD sleep 1000
+FROM python:3.7-alpine
+
+WORKDIR /app
+
+RUN apk update && apk add libpq postgresql-client
+
+RUN apk update \
+    && apk add jpeg-dev zlib-dev libmagic
+
+COPY --from=builder /app/wheels /wheels
+RUN pip install -U pip
+RUN pip install --no-cache /wheels/*
+
+COPY ./docker/entrypoint.sh /
+
+RUN chmod +x /entrypoint.sh
+
+COPY . .
+
+RUN chmod +x ./docker/init_db.sh
+
+ENV DJANGO_SETTINGS_MODULE=app.settings.production
+CMD gunicorn --workers=5 app.wsgi:application --bind 0.0.0.0:8000
+
+EXPOSE 8000
+
+ENTRYPOINT ["/entrypoint.sh"]

@@ -1,0 +1,44 @@
+  include:
+  - project: 'jnewb-bclaw/deployment'
+    ref: main
+    file: 'gitlab-ci-base.yml'
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+      variables:
+        ENVIRONMENT: "testing"
+    - if: $CI_COMMIT_BRANCH == "staging"
+      variables:
+        ENVIRONMENT: "staging"
+    - if: $CI_COMMIT_BRANCH == "main"
+      variables:
+        ENVIRONMENT: "production"
+
+deploy-testing:
+  extends:
+    - .deploy
+  environment:
+    name: testing
+    url: https://api.testing.mycowgame.com
+  only:
+    - develop
+
+deploy-staging:
+  extends:
+    - .deploy
+  environment:
+    name: staging
+    url: https://api.staging.mycowgame.com
+  only:
+    - staging
+
+deploy-production:
+  extends:
+    - .deploy
+  environment:
+    name: production
+    url: https://api.mycowgame.com
+  only:
+    - main
+
