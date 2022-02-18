@@ -13,7 +13,7 @@ function Nav() {
           navigate("/");
         }}
       >
-        <h1>MY COWS</h1>
+        <h1>MY COW</h1>
       </div>
     </>
   );
