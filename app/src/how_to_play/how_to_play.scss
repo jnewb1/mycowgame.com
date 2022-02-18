@@ -4,15 +4,17 @@
 }
 
 .tutorial-row {
-  margin: 0 5vw;
+  margin: 0 3vw;
 }
 
 .tutorial-icon-container {
+  flex: 0 0 auto;
   border: black 1px solid;
   border-radius: 3px;
-  padding: 0 2vw;
-  width: 20vw;
-  height: 20vw;
+
+  $constainer-size: 20vw;
+  width: $constainer-size;
+  height: $constainer-size;
   text-align: center;
   display: flex;
   align-items: center;
@@ -21,4 +23,5 @@
 
 .tutorial-description {
   margin: 0 15px;
+  flex-grow: 1;
 }
