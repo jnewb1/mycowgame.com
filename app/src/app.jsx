@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import MetaTags from "react-meta-tags";
 
 // Style
 import "./style/components.scss";
@@ -12,8 +13,19 @@ import Nav from "./nav";
 import HowToPlay from "./how_to_play/how_to_play";
 
 function App() {
+  const TITLE = "My Cow Game";
+  const DESCRIPTION =
+    "The best road trip game, whether you're in a city or the middle of nowhere. Score points by spotting, marrying and killing cows (and other large animals)";
+
   return (
     <>
+      <MetaTags>
+        <title>{TITLE}</title>
+        <meta name="description" content={DESCRIPTION} />
+        <meta property="og:title" content={TITLE} />
+        {/* <meta property="og:image" content="/cow.jpg" /> */}
+      </MetaTags>
+
       <Nav />
       <Routes>
         <Route path="/" element={<Homepage />} />
