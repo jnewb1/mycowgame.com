@@ -23,3 +23,8 @@
 .margin-extra-large {
   margin-top: 12vh !important;
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
