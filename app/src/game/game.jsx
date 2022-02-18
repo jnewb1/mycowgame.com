@@ -5,6 +5,11 @@ import "./game.scss";
 
 import PlayerCard from "./playercard";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCopy
+} from "@fortawesome/free-solid-svg-icons";
+
 function Game() {
   const { id } = useParams();
 
@@ -37,7 +42,7 @@ function Game() {
   return (
     <>
       <div className="row margin-small">
-        <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2>
+        <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2><button onClick={() => navigator.clipboard.writeText(gameData.pk)}><FontAwesomeIcon icon={faCopy}></FontAwesomeIcon></button>
       </div>
 
       <div className="row margin-small" id="add_new_player_container">
