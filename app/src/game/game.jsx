@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { addPlayer, useGame } from "../api";
+import { addPlayer, useGame, removePlayer } from "../api";
 import "./game.scss";
 
 import PlayerCard from "./playercard";
+import ConfirmationModal from "../modals/modals";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,6 +13,8 @@ import {
 
 function Game() {
   const { id } = useParams();
+  let [modalOpen, setModalOpen] = useState(false);
+  let [playerToDelete, setPlayerToDelete] = useState("");
 
   let [newPlayerName, setNewPlayerName] = useState("");
 
@@ -25,6 +28,21 @@ function Game() {
     addPlayer(gameData.pk, name).then(({ data }) => {
       forceUpdate();
     });
+  };
+
+  const onDeleteRequest = (name) => {
+    setModalOpen(true);
+    setPlayerToDelete(name);
+  };
+
+  const deletePlayer = (name) => {
+    removePlayer(gameData.pk, name)
+      .then(({ data }) => {
+        forceUpdate();
+      })
+      .then(() => {
+        setModalOpen(false);
+      });
   };
 
   useEffect(() => {
@@ -67,16 +85,31 @@ function Game() {
             +
           </button>
         </div>
+
+        {gameData.players.map((player) => (
+          <PlayerCard
+            key={player.name}
+            gameData={gameData}
+            player={player}
+            forceUpdate={forceUpdate}
+            onDeleteRequest={onDeleteRequest}
+          ></PlayerCard>
+        ))}
       </div>
 
-      {gameData.players.map((player) => (
-        <PlayerCard
-          key={player.name}
-          gameData={gameData}
-          player={player}
-          forceUpdate={forceUpdate}
-        ></PlayerCard>
-      ))}
+
+      {modalOpen && (
+        <ConfirmationModal
+          prompt={"Confirm Delete Player"}
+          confirmAction={() => {
+            deletePlayer(playerToDelete);
+          }}
+          cancelAction={() => {
+            setModalOpen(false);
+          }}
+        ></ConfirmationModal>
+      )}
+
     </>
   );
 }

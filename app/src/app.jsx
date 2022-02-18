@@ -23,6 +23,7 @@ function App() {
         <title>{TITLE}</title>
         <meta name="description" content={DESCRIPTION} />
         <meta property="og:title" content={TITLE} />
+        <link rel="canonical" href="/" />
       </MetaTags>
 
       <Nav />
