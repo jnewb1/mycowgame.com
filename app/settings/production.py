@@ -16,6 +16,12 @@ DATABASES = {
     }
 }
 
-CORS_ALLOWED_ORIGIN_REGEXES = os.environ["CORS_ALLOWED_ORIGIN_REGEXES"].split(",")
 
-ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
+def get_environ_list(k):
+    return os.environ[k].split(",") if k in os.environ.keys() else []
+
+
+CORS_ALLOWED_ORIGINS = get_environ_list("CORS_ALLOWED_ORIGINS")
+CORS_ALLOWED_ORIGIN_REGEXES = get_environ_list("CORS_ALLOWED_ORIGIN_REGEXES")
+
+ALLOWED_HOSTS = get_environ_list("ALLOWED_HOSTS")
