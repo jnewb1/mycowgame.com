@@ -16,6 +16,7 @@ DATABASES = {
     }
 }
 
-CORS_ALLOWED_ORIGINS = os.environ["CORS_ALLOWED_ORIGINS"].split(",")
+CORS_ALLOWED_ORIGIN_REGEXES = os.environ["CORS_ALLOWED_ORIGIN_REGEXES"].split(
+    ",")
 
 ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
