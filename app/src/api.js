@@ -131,4 +131,4 @@ const removePlayer = (gamePK, name) => post(postRemovePlayer, { gamePK, name })
 
 const playerAction = (gamePK, player, action) => post(postPlayerAction, { gamePK, player, action })
 
-export { useGame, createGame, addPlayer, removePlayer, playerAction }
+export { useGame, createGame, getGame, addPlayer, removePlayer, playerAction }

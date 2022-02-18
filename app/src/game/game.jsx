@@ -1,70 +1,79 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { addPlayer, removePlayer, playerAction, useGame } from "../api";
+import { addPlayer, useGame } from "../api";
+import "./game.scss";
+
+import PlayerCard from "./playercard";
 
 function Game() {
-    const { id } = useParams();
+  const { id } = useParams();
 
-    let [newPlayerName, setNewPlayerName] = useState("")
+  let [newPlayerName, setNewPlayerName] = useState("");
 
-    const { data, errors, loaded, update } = useGame(id);
+  const { data: gameData, errors, loaded, update } = useGame(id);
 
-    const forceUpdate = () => {
-        update();
-    }
+  const forceUpdate = () => {
+    update();
+  };
 
-    const onAddPlayer = (name) => {
-        addPlayer(data.pk, name).then(({data}) => {
-            forceUpdate();
-        })
-    }
+  const onAddPlayer = (name) => {
+    addPlayer(gameData.pk, name).then(({ data }) => {
+      forceUpdate();
+    });
+  };
 
-    const onRemovePlayer = (name) => {
-        removePlayer(data.pk, name).then(({data}) => {
-            forceUpdate();
-        })
-    }
+  useEffect(() => {
+    let h = setInterval(forceUpdate, 500);
 
-    const onPlayerAction = (name, action) => {
-        playerAction(data.pk, name, action).then(({data}) => {
-            forceUpdate();
-        })
-    }
+    return () => {
+      clearInterval(h);
+    };
+  }, []);
 
-    useEffect(() => {
-        let h = setInterval(forceUpdate, 500);
+  if (!loaded) {
+    return "loading...";
+  }
 
-        return () => {
-            clearInterval(h);
-        }
-    }, [])
+  return (
+    <>
+      <div className="row margin-small">
+        <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2>
+      </div>
 
+      <div className="row margin-small" id="add_new_player_container">
+        <div>Add new player:</div>
+      </div>
 
-    if(!loaded){
-        return "loading..."
-    }
+      <div className="row margin-extra-small">
+        <div>
+          <input
+            type="text"
+            onChange={(e) => setNewPlayerName(e.target.value)}
+            value={newPlayerName}
+            id="player_name_input"
+          ></input>
+          <button
+            id="player_name_enter_button"
+            onClick={() => {
+              onAddPlayer(newPlayerName);
+              setNewPlayerName("");
+            }}
+          >
+            +
+          </button>
+        </div>
+      </div>
 
-    return (
-        <>
-            <div className="row">
-                <h1>{data.pk}</h1>
-                {data.players.map(player => <div>
-                    {player.name} {player.points}
-                    {data.actions.map(action => <div onClick={() => onPlayerAction(player.name, action.name)}>{action.name}</div>)}
-                    <div onClick={() => onRemovePlayer(player.name)}>Delete</div>
-                </div>)}
-                <div>
-                    <input type="text" onChange={(e) => setNewPlayerName(e.target.value)} value={newPlayerName}></input>
-                    <button onClick={() => 
-                        {
-                            onAddPlayer(newPlayerName)
-                            setNewPlayerName("")
-                    }}>+</button>
-                </div>
-            </div>
-
-        </>
-    );
+      {gameData.players.map((player) => (
+        <PlayerCard
+          key={player.name}
+          gameData={gameData}
+          player={player}
+          forceUpdate={forceUpdate}
+        ></PlayerCard>
+      ))}
+    </>
+  );
 }
 
 export default Game;

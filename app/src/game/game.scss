@@ -1,0 +1,58 @@
+// Game ID
+
+#game_id_label {
+  white-space: nowrap;
+  font-size: 26px;
+  width: 100vw;
+}
+
+// New Player
+
+$player_name_input_height: 24px;
+$player_name_input_padding: 4px;
+
+#add_new_player_container {
+  font-size: $player_name_input_height;
+}
+
+#player_name_input {
+  width: 70vw;
+  font-size: $player_name_input_height;
+  padding: $player_name_input_padding 0px;
+}
+
+#player_name_enter_button {
+  font-size: $player_name_input_height;
+  width: 20vw;
+  padding: $player_name_input_padding 0px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// Player Card
+
+#player_card_container {
+  border: black 1px solid;
+  border-radius: 10px;
+  width: 85vw;
+  padding: 10px;
+}
+
+#player_card_name_score {
+  width: 100%;
+  font-size: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#player_card_delete_button {
+  font-size: 24px;
+  padding: 5px 20px;
+  margin-left: 15px;
+}
+
+.player-card-action-button {
+  width: 25vw;
+  font-size: 15vw;
+}
