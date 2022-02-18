@@ -1,15 +1,17 @@
-FROM node:14-buster
+FROM node:14-slim as builder
 
-RUN apt update && apt install git
-
-ENV CHOKIDAR_USEPOLLING=true
-
-ENV REACT_APP_API_SERVER="http://mycows.bclaw.me:8000/api/v1/"
-
-COPY /app /app
 WORKDIR /app
+COPY ./app/package.json ./
+RUN yarn install
 
-RUN yarn install && yarn build
-RUN yarn global add serve
+ARG REACT_APP_API_SERVER
+ENV REACT_APP_API_SERVER $REACT_APP_API_SERVER
+ENV GENERATE_SOURCEMAP=false
+COPY ./app ./
+RUN yarn build
 
-CMD serve -s build
+FROM nginx:alpine
+COPY docker/default.conf.template /etc/nginx/templates/
+COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
