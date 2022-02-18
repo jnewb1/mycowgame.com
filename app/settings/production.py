@@ -16,14 +16,6 @@ DATABASES = {
     }
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'https://mycowgame.com',
-    'https://staging.mycowgame.com',
-    'https://testing.mycowgame.com'
-]
+CORS_ALLOWED_ORIGINS = os.environ["CORS_ALLOWED_ORIGINS"].split(",")
 
-ALLOWED_HOSTS = [
-    "api.staging.mycowgame.com",
-    'api.testing.mycowgame.com',
-    "api.mycowgame.com"
-]
+ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
