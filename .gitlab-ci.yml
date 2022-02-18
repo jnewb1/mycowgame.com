@@ -41,4 +41,3 @@ deploy-production:
     url: https://api.mycowgame.com
   only:
     - main
-
