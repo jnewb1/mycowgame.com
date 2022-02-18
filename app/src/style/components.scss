@@ -16,10 +16,12 @@ h6 {
   background-color: $color-primary;
   border: 1px black solid;
   border-radius: 3px;
+  color: black;
+  padding: 0;
 
   &:hover {
     cursor: pointer;
-    background-color: $color-primary-hover;
+    // background-color: $color-primary-hover;
   }
 }
 
@@ -62,4 +64,8 @@ h6 {
 
   font-size: 24px;
   text-align: center;
+}
+
+.fa-icon {
+  font-size: 15vw;
 }

@@ -24,8 +24,13 @@ function Homepage() {
         </button>
       </div>
 
-      <div className="row margin-small disabled">
-        <button className="main-menu-button">How To Play</button>
+      <div className="row margin-small">
+        <button
+          className="main-menu-button"
+          onClick={() => navigate("/how-to-play")}
+        >
+          How To Play
+        </button>
       </div>
     </>
   );

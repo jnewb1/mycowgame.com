@@ -1,0 +1,24 @@
+#tutorial_intro_text {
+  margin: 0 12vw;
+  text-align: center;
+}
+
+.tutorial-row {
+  margin: 0 5vw;
+}
+
+.tutorial-icon-container {
+  border: black 1px solid;
+  border-radius: 3px;
+  padding: 0 2vw;
+  width: 20vw;
+  height: 20vw;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tutorial-description {
+  margin: 0 15px;
+}

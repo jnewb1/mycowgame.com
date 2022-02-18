@@ -28,6 +28,7 @@ $player_name_input_padding: 4px;
   &:hover {
     cursor: pointer;
   }
+  border-radius: 3px;
 }
 
 // Player Card
@@ -54,5 +55,5 @@ $player_name_input_padding: 4px;
 
 .player-card-action-button {
   width: 25vw;
-  font-size: 15vw;
+  padding: 1vw;
 }

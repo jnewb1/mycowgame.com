@@ -49,7 +49,7 @@ function PlayerCard(props) {
               className="button player-card-action-button"
               onClick={() => onPlayerAction(player.name, "My Cow")}
             >
-              <FontAwesomeIcon icon={faHorseHead} />
+              <FontAwesomeIcon className="fa-icon" icon={faHorseHead} />
             </button>
             <button
               className={
@@ -58,7 +58,7 @@ function PlayerCard(props) {
               }
               onClick={() => onPlayerAction(player.name, "Marry My Cows")}
             >
-              <FontAwesomeIcon icon={faChurch} />
+              <FontAwesomeIcon className="fa-icon" icon={faChurch} />
             </button>
             <button
               className={
@@ -67,7 +67,7 @@ function PlayerCard(props) {
               }
               onClick={() => onPlayerAction(player.name, "Kill Your Cows")}
             >
-              <FontAwesomeIcon icon={faSkull} />
+              <FontAwesomeIcon className="fa-icon" icon={faSkull} />
             </button>
           </div>
         </div>
