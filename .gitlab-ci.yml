@@ -8,15 +8,15 @@ workflow:
     - if: $CI_COMMIT_BRANCH == "develop"
       variables:
         ENVIRONMENT: "testing"
-        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://api.testing.mycowgame.com/"
+        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://api.testing.mycowgame.com/api/v1/"
     - if: $CI_COMMIT_BRANCH == "staging"
       variables:
         ENVIRONMENT: "staging"
-        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://api.staging.mycowgame.com/"
+        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://api.staging.mycowgame.com/api/v1/"
     - if: $CI_COMMIT_BRANCH == "main"
       variables:
         ENVIRONMENT: "production"
-        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://api.mycowgame.com/"
+        BUILD_ARGS: "--build-arg REACT_APP_API_HOST=https://api.mycowgame.com/api/v1/"
 
 deploy-testing:
   extends:
