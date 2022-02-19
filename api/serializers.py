@@ -1,5 +1,6 @@
 from api.models import Game, GamePlayer, GAME_ACTIONS
 from rest_framework import serializers
+from django.db.models.functions import Lower
 
 
 class GamePlayerSerializer(serializers.HyperlinkedModelSerializer):
@@ -9,10 +10,10 @@ class GamePlayerSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class GameSerializer(serializers.HyperlinkedModelSerializer):
-    players = GamePlayerSerializer(many=True, read_only=True)
     actions = serializers.SerializerMethodField()
+    players = serializers.SerializerMethodField()
 
-    def get_actions(self, game):
+    def get_actions(self, game: Game):
         ret = []
 
         for name, data in GAME_ACTIONS.items():
@@ -22,6 +23,11 @@ class GameSerializer(serializers.HyperlinkedModelSerializer):
             })
 
         return ret
+
+    def get_players(self, game: Game):
+        players = game.players.order_by(Lower('name')).all()
+
+        return GamePlayerSerializer(players, many=True, context=self.context).data
 
     class Meta:
         model = Game

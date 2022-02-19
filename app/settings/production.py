@@ -1,3 +1,4 @@
+import json
 from . import *
 import os
 
@@ -16,14 +17,13 @@ DATABASES = {
     }
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'https://mycowgame.com',
-    'https://staging.mycowgame.com',
-    'https://testing.mycowgame.com'
-]
 
-ALLOWED_HOSTS = [
-    "api.staging.mycowgame.com",
-    'api.testing.mycowgame.com',
-    "api.mycowgame.com"
-]
+def get_environ_json(k, default=[]):
+    return json.loads(os.environ[k]) if k in os.environ else default
+
+
+CORS_ALLOWED_ORIGINS = get_environ_json("CORS_ALLOWED_ORIGINS", [])
+CORS_ALLOWED_ORIGIN_REGEXES = get_environ_json(
+    "CORS_ALLOWED_ORIGIN_REGEXES", [])
+
+ALLOWED_HOSTS = get_environ_json("ALLOWED_HOSTS", [])
