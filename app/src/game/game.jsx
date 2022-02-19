@@ -4,11 +4,12 @@ import { addPlayer, useGame, removePlayer } from "../api";
 import "./game.scss";
 
 import PlayerCard from "./playercard";
-import ConfirmationModal from "../modals/modals";
+import { ConfirmationModal, AlertModal } from "../modals/modals";
 
 function Game() {
   const { id } = useParams();
-  let [modalOpen, setModalOpen] = useState(false);
+  let [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  let [alertModalOpen, setAlertModalOpen] = useState(false);
   let [playerToDelete, setPlayerToDelete] = useState("");
 
   let [newPlayerName, setNewPlayerName] = useState("");
@@ -20,13 +21,25 @@ function Game() {
   };
 
   const onAddPlayer = (name) => {
-    addPlayer(gameData.pk, name).then(({ data }) => {
-      forceUpdate();
-    });
+    let playerNameTaken = false;
+    if (gameData.players.length > 0) {
+      playerNameTaken =
+        gameData.players.filter((p) => p.name === name).length > 0;
+    }
+
+    console.log("Hello", playerNameTaken);
+
+    if (playerNameTaken === false) {
+      addPlayer(gameData.pk, name).then(({ data }) => {
+        forceUpdate();
+      });
+    } else {
+      setAlertModalOpen(true);
+    }
   };
 
   const onDeleteRequest = (name) => {
-    setModalOpen(true);
+    setConfirmModalOpen(true);
     setPlayerToDelete(name);
   };
 
@@ -36,7 +49,7 @@ function Game() {
         forceUpdate();
       })
       .then(() => {
-        setModalOpen(false);
+        setConfirmModalOpen(false);
       });
   };
 
@@ -60,7 +73,7 @@ function Game() {
 
   return (
     <>
-      <span className={modalOpen ? "disabled" : ""}>
+      <span className={confirmModalOpen || alertModalOpen ? "disabled" : ""}>
         <div className="row margin-small">
           <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2>
         </div>
@@ -77,15 +90,15 @@ function Game() {
               value={newPlayerName}
               id="player_name_input"
             ></input>
-            <button
+            <input
               id="player_name_enter_button"
               onClick={() => {
                 onAddPlayer(newPlayerName);
                 setNewPlayerName("");
               }}
-            >
-              +
-            </button>
+              type="submit"
+              value={"+"}
+            ></input>
           </div>
         </div>
 
@@ -100,16 +113,25 @@ function Game() {
         ))}
       </span>
 
-      {modalOpen && (
+      {confirmModalOpen && (
         <ConfirmationModal
           prompt={"Confirm Delete Player"}
           confirmAction={() => {
             deletePlayer(playerToDelete);
           }}
           cancelAction={() => {
-            setModalOpen(false);
+            setConfirmModalOpen(false);
           }}
         ></ConfirmationModal>
+      )}
+
+      {alertModalOpen && (
+        <AlertModal
+          prompt={`Error - Duplicate Name`}
+          confirmAction={() => {
+            setAlertModalOpen(false);
+          }}
+        ></AlertModal>
       )}
     </>
   );
