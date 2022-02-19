@@ -8,9 +8,23 @@
             "type": "shell",
             "command": "yarn start",
             "options": {
-                "cwd": "${workspaceFolder}/app"
+                "cwd": "${workspaceFolder}/app",
+                "env": {
+                    "REACT_APP_API_SERVER": "${input:REACT_APP_API_SERVER}"
+                }
             },
             "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+          "id": "REACT_APP_API_SERVER",
+          "type": "pickString",
+          "description": "REACT_APP_API_SERVER",
+          "options": [
+              "https://api.testing.mycowgame.com/api/v1/",
+              "http://localhost:8000/api/v1/"
+          ]
         }
     ]
 }

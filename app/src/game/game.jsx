@@ -86,7 +86,10 @@ function Game() {
           </button>
         </div>
 
-        {gameData.players.map((player) => (
+     
+      </div>
+
+      {gameData.players.map((player) => (
           <PlayerCard
             key={player.name}
             gameData={gameData}
@@ -95,9 +98,7 @@ function Game() {
             onDeleteRequest={onDeleteRequest}
           ></PlayerCard>
         ))}
-      </div>
-
-
+        
       {modalOpen && (
         <ConfirmationModal
           prompt={"Confirm Delete Player"}
