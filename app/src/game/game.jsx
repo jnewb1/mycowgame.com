@@ -78,8 +78,12 @@ function Game() {
     <>
       <span className={confirmModalOpen || alertModalOpen ? "disabled" : ""}>
         <div className="row margin-small">
-          <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2><button onClick={() => navigator.clipboard.writeText(gameData.pk)}><FontAwesomeIcon icon={faCopy}></FontAwesomeIcon></button>
+            <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2>
         </div>
+
+          <div className="row">
+            <button id="copy_button" onClick={() => navigator.clipboard.writeText(gameData.pk)}><FontAwesomeIcon icon={faCopy}></FontAwesomeIcon></button>
+          </div>
 
         <div className="row margin-small" id="add_new_player_container">
           <div>Add new player:</div>
