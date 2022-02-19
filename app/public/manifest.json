@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "My Cow Game",
+  "name": "My Cow Game - The competitive cow-collecting road trip game",
   "icons": [
     {
       "src": "favicon.ico",

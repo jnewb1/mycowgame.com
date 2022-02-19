@@ -6,6 +6,11 @@ import "./game.scss";
 import PlayerCard from "./playercard";
 import { ConfirmationModal, AlertModal } from "../modals/modals";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCopy
+} from "@fortawesome/free-solid-svg-icons";
+
 function Game() {
   const { id } = useParams();
   let [confirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -67,16 +72,18 @@ function Game() {
         <h4>loading...</h4>
       </div>
     );
-  } else if (gameData && gameData.players.length > 1) {
-    gameData.players.sort((a, b) => (a.name > b.name ? 1 : -1));
   }
 
   return (
     <>
       <span className={confirmModalOpen || alertModalOpen ? "disabled" : ""}>
         <div className="row margin-small">
-          <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2>
+            <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2>
         </div>
+
+          <div className="row">
+            <button id="copy_button" onClick={() => navigator.clipboard.writeText(gameData.pk)}><FontAwesomeIcon icon={faCopy}></FontAwesomeIcon></button>
+          </div>
 
         <div className="row margin-small" id="add_new_player_container">
           <div>Add new player:</div>
@@ -102,7 +109,7 @@ function Game() {
           </div>
         </div>
 
-        {gameData.players.map((player) => (
+      {gameData.players.map((player) => (
           <PlayerCard
             key={player.name}
             gameData={gameData}

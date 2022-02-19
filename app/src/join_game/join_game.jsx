@@ -2,7 +2,7 @@ import "./join_game.scss";
 
 import { getGame } from "../api";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const JoinGame = function () {
   const [gameKey, setGameKey] = useState("");
@@ -18,8 +18,6 @@ const JoinGame = function () {
         );
       }
     });
-
-    console.log("join");
   }
 
   return (
@@ -43,6 +41,12 @@ const JoinGame = function () {
           onClick={onJoinGame}
         >
           Join Game
+        </button>
+      </div>
+
+      <div className="row margin-medium">
+        <button className="main-menu-button" onClick={() => navigate("/")}>
+          Return to Homepage
         </button>
       </div>
     </>
