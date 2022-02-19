@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-xa#=viln6bj*#8e8qri7wo1otv6o9lax_y8hg5vbz0w6ozoj!0
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.0.32'
+    '192.168.0.32',
+    'mycows.bclaw.me'
 ]
 
 
@@ -138,4 +139,6 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://192.168.0.32:3000",
+    "http://mycows.bclaw.me",
+    "http://73.144.153.100"
 ]

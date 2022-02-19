@@ -17,8 +17,9 @@ def random_id_unique():
 
 
 def marry_my_cows(game, player):
-    player.points *= 2
-    player.save()
+    if player.points > 1:
+        player.points *= 2
+        player.save()
 
 
 def kill_your_cows(game, player):
