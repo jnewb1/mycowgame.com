@@ -21,14 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-xa#=viln6bj*#8e8qri7wo1otv6o9lax_y8hg5vbz0w6ozoj!0'
-# SECRET_KEY = 'zS8uqY^WY#U4L!@TscbB&tPV$HuvgmmoMRVPz*#!cQN5@zjTMhJaEfJfs5WdhGK16497852354Kv87dfm$25^AkDWxQ&BxXb@8X73WJBneMi9Qez'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
     '192.168.0.32',
-    'mycows.bclaw.me'
+    '192.168.0.29'
 ]
 
 
@@ -140,7 +139,5 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://192.168.0.32:3000",
-    "http://73.144.153.100"
-    "http://192.168.0.29:3000",
-    "http://mycows.bclaw.me",
+    "http://192.168.0.29:3000"
 ]
