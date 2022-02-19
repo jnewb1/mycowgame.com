@@ -49,7 +49,13 @@ function Game() {
   }, []);
 
   if (!loaded) {
-    return "loading...";
+    return (
+      <div className="row margin-large">
+        <h4>loading...</h4>
+      </div>
+    );
+  } else if (gameData && gameData.players.length > 1) {
+    gameData.players.sort((a, b) => (a.name > b.name ? 1 : -1));
   }
 
   return (
