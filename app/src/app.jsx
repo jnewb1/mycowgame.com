@@ -23,7 +23,7 @@ function App() {
         <title>{TITLE}</title>
         <meta name="description" content={DESCRIPTION} />
         <meta property="og:title" content={TITLE} />
-        <link rel="canonical" href="/" />
+        <link rel="canonical" href={`${window.location.origin}/`} />
       </MetaTags>
 
       <Nav />
