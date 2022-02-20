@@ -41,3 +41,4 @@ class GameActionSerializer(serializers.Serializer):
 
 class GamePlayerSerializer(serializers.Serializer):
     name = serializers.CharField()
+    points = serializers.IntegerField()
