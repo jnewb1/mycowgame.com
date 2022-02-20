@@ -31,3 +31,8 @@ class GameSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Game
         fields = ['pk', 'players', 'actions']
+
+
+class GameActionSerializer(serializers.Serializer):
+    action = serializers.CharField()
+    player = serializers.CharField()
