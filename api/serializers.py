@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.db.models.functions import Lower
 
 
-class GamePlayerSerializer(serializers.HyperlinkedModelSerializer):
+class GamePlayerSerializer(serializers.Serializer):
     name = serializers.CharField()
     points = serializers.IntegerField(read_only=True)
 
