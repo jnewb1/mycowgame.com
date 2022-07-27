@@ -38,8 +38,8 @@ COPY . .
 RUN chmod +x ./docker/init_db.sh
 
 ENV DJANGO_SETTINGS_MODULE=app.settings.production
-CMD gunicorn --workers=5 app.wsgi:application --bind 0.0.0.0:8000
+CMD gunicorn --workers=5 app.wsgi:application --bind 0.0.0.0:80
 
-EXPOSE 8000
+EXPOSE 80
 
 ENTRYPOINT ["/entrypoint.sh"]
