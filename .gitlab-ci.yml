@@ -3,45 +3,38 @@ include:
     ref: main
     file: 'gitlab-ci-base.yml'
 
-workflow:
-  rules:
-    - if: $CI_COMMIT_BRANCH == "develop"
-      variables:
-        ENVIRONMENT: "testing"
-        BUILD_ARGS: "--build-arg REACT_APP_API_SERVER=https://api.testing.mycowgame.com/api/v1/"
-    - if: $CI_COMMIT_BRANCH == "staging"
-      variables:
-        ENVIRONMENT: "staging"
-        BUILD_ARGS: "--build-arg REACT_APP_API_SERVER=https://api.staging.mycowgame.com/api/v1/"
-    - if: $CI_COMMIT_BRANCH == "main"
-      variables:
-        ENVIRONMENT: "production"
-        BUILD_ARGS: "--build-arg REACT_APP_API_SERVER=https://api.mycowgame.com/api/v1/"
+variables:
+  PROJECT_NAME: mycowgame-com-frontend
 
 deploy-testing:
   extends:
-    - .deploy
+    - .deploy-kubernetes
+  variables:
+    ENVIRONMENT: testing
   environment:
     name: testing
-    url: https://testing.mycowgame.com
+    url: https://testing.mycowgame.com/
   only:
     - develop
 
 deploy-staging:
   extends:
-    - .deploy
+    - .deploy-kubernetes
+  variables:
+    ENVIRONMENT: staging
   environment:
     name: staging
-    url: https://staging.mycowgame.com
+    url: https://staging.mycowgame.com/
   only:
     - staging
 
 deploy-production:
   extends:
-    - .deploy
+    - .deploy-kubernetes
+  variables:
+    ENVIRONMENT: production
   environment:
     name: production
-    url: https://mycowgame.com
+    url: https://mycowgame.com/
   only:
     - main
-    
