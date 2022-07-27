@@ -3,41 +3,38 @@ include:
     ref: main
     file: 'gitlab-ci-base.yml'
 
-workflow:
-  rules:
-    - if: $CI_COMMIT_BRANCH == "develop"
-      variables:
-        ENVIRONMENT: "testing"
-    - if: $CI_COMMIT_BRANCH == "staging"
-      variables:
-        ENVIRONMENT: "staging"
-    - if: $CI_COMMIT_BRANCH == "main"
-      variables:
-        ENVIRONMENT: "production"
+variables:
+  PROJECT_NAME: "mycowgame-com-backend"
 
 deploy-testing:
   extends:
-    - .deploy
+    - .deploy-kubernetes
   environment:
     name: testing
     url: https://api.testing.mycowgame.com
   only:
     - develop
+  variables:
+    ENVIRONMENT: "testing"
 
 deploy-staging:
   extends:
-    - .deploy
+    - .deploy-kubernetes
   environment:
     name: staging
     url: https://api.staging.mycowgame.com
   only:
     - staging
+  variables:
+    ENVIRONMENT: "staging"
 
 deploy-production:
   extends:
-    - .deploy
+    - .deploy-kubernetes
   environment:
     name: production
     url: https://api.mycowgame.com
   only:
     - main
+  variables:
+    ENVIRONMENT: "production"

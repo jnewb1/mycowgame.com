@@ -1,0 +1,27 @@
+namespace: mycowgame-com-backend-staging
+
+bases:
+  - ../../base
+
+configMapGenerator:
+- name: mycowgame-com-backend
+  env: config.properties
+
+resources:
+  - namespace.yml
+
+images:
+- name: registry.gitlab.com/jnewb-bclaw/mycowgame.com/backend
+  newName: registry.gitlab.com/jnewb-bclaw/mycowgame.com/backend/main
+
+patches:
+  - target:
+      kind: Ingress
+      name: mycowgame-com-backend
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: api.staging.mycowgame.com
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: api.staging.mycowgame.com
