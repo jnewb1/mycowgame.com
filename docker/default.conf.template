@@ -6,9 +6,6 @@ server {
   gzip_comp_level 9;
   etag on;
   
-  auth_basic $AUTH_MODE;
-  auth_basic_user_file /etc/nginx/.htpasswd;
-  
   access_log off;
   error_log off;
   
