@@ -10,7 +10,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/app",
                 "env": {
-                    "REACT_APP_API_SERVER": "${input:REACT_APP_API_SERVER}"
+                    "REACT_APP_API_URL": "${input:REACT_APP_API_URL}"
                 }
             },
             "problemMatcher": []
@@ -18,12 +18,12 @@
     ],
     "inputs": [
         {
-          "id": "REACT_APP_API_SERVER",
+          "id": "REACT_APP_API_URL",
           "type": "pickString",
-          "description": "REACT_APP_API_SERVER",
+          "description": "REACT_APP_API_URL",
           "options": [
-              "https://api.testing.mycowgame.com/api/v1/",
-              "http://localhost:8000/api/v1/"
+              "https://api.testing.mycowgame.com",
+              "http://localhost:8000"
           ]
         }
     ]
