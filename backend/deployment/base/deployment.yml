@@ -30,8 +30,6 @@ spec:
         image: memcached
         ports:
         - containerPort: 11211
-      imagePullSecrets:
-      - name: github-regcred
 ---
 apiVersion: v1
 kind: Service

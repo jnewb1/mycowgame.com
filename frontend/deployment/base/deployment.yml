@@ -26,8 +26,6 @@ spec:
         - containerPort: 80
         image: ghcr.io/jnewb1/mycowgame.com/frontend
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: gitlab-regcred
 ---
 apiVersion: v1
 kind: Service

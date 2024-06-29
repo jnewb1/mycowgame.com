@@ -4,4 +4,3 @@ configMapGenerator:
 
 resources:
   - deployment.yml
-  - gitlab-regcred.yml
