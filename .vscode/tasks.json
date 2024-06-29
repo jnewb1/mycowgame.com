@@ -1,0 +1,30 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "start react server",
+            "type": "shell",
+            "command": "yarn start",
+            "options": {
+                "cwd": "${workspaceFolder}/app",
+                "env": {
+                    "REACT_APP_API_URL": "${input:REACT_APP_API_URL}"
+                }
+            },
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+          "id": "REACT_APP_API_URL",
+          "type": "pickString",
+          "description": "REACT_APP_API_URL",
+          "options": [
+              "https://api.testing.mycowgame.com",
+              "http://localhost:8000"
+          ]
+        }
+    ]
+}

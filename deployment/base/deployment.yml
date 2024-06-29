@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mycowgame-com-frontend
+  labels:
+    app: mycowgame-com-frontend
+spec:
+  selector:
+    matchLabels:
+      app: mycowgame-com-frontend
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mycowgame-com-frontend
+        tier: frontend
+    spec:
+      containers:
+      - name: mycowgame-com-frontend
+        envFrom:
+        - configMapRef:
+            name: mycowgame-com-frontend
+        ports:
+        - containerPort: 80
+        image: registry.gitlab.com/jnewb-bclaw/mycowgame.com/frontend
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: gitlab-regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mycowgame-com-frontend
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: mycowgame-com-frontend
+    tier: frontend
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mycowgame-com-frontend
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  rules:
+    - host: mycowgame.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mycowgame-com-frontend
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - mycowgame.com
+      secretName: mycowgame-com-frontend-certificate

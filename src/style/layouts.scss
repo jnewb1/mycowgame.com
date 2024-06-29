@@ -1,0 +1,35 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.margin-extra-small {
+  margin-top: 1vh !important;
+}
+
+.margin-small {
+  margin-top: 3vh !important;
+}
+
+.margin-medium {
+  margin-top: 6vh !important;
+}
+
+.margin-large {
+  margin-top: 9vh !important;
+}
+
+.margin-extra-large {
+  margin-top: 12vh !important;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.bold {
+  font-weight: bold;
+}

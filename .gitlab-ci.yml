@@ -1,0 +1,40 @@
+include:
+  - project: 'jnewb-bclaw/deployment'
+    ref: main
+    file: 'gitlab-ci-base.yml'
+
+variables:
+  PROJECT_NAME: mycowgame-com-frontend
+
+deploy-testing:
+  extends:
+    - .deploy-kubernetes
+  variables:
+    ENVIRONMENT: testing
+  environment:
+    name: testing
+    url: https://testing.mycowgame.com/
+  only:
+    - develop
+
+deploy-staging:
+  extends:
+    - .deploy-kubernetes
+  variables:
+    ENVIRONMENT: staging
+  environment:
+    name: staging
+    url: https://staging.mycowgame.com/
+  only:
+    - staging
+
+deploy-production:
+  extends:
+    - .deploy-kubernetes
+  variables:
+    ENVIRONMENT: production
+  environment:
+    name: production
+    url: https://mycowgame.com/
+  only:
+    - main

@@ -1,0 +1,7 @@
+configMapGenerator:
+- name: cicd
+  envs: [cicd.env]
+
+resources:
+  - deployment.yml
+  - gitlab-regcred.yml

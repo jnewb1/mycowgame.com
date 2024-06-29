@@ -1,0 +1,20 @@
+FROM node:14-slim as builder
+
+WORKDIR /app
+COPY ./package.json ./
+RUN yarn install
+
+ENV GENERATE_SOURCEMAP=false
+COPY ./src ./src
+COPY ./public ./public
+COPY ./tsconfig.json ./tsconfig.json
+COPY ./config.json ./src/config.json
+RUN yarn build
+
+FROM nginx
+COPY docker/default.conf.template /etc/nginx/templates/
+COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
+
+COPY ./docker/90-react-envsubst.sh /docker-entrypoint.d/90-react-envsubst.sh
+RUN chmod +x /docker-entrypoint.d/90-react-envsubst.sh

@@ -1,0 +1,27 @@
+namespace: mycowgame-com-frontend-production
+
+bases:
+  - ../../base
+
+configMapGenerator:
+- name: mycowgame-com-frontend
+  env: config.properties
+
+resources:
+  - namespace.yml
+
+images:
+- name: registry.gitlab.com/jnewb-bclaw/mycowgame.com/frontend
+  newName: registry.gitlab.com/jnewb-bclaw/mycowgame.com/frontend/main
+
+patches:
+  - target:
+      kind: Ingress
+      name: mycowgame-com-frontend
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: mycowgame.com
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: mycowgame.com
