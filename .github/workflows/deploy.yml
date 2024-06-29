@@ -14,7 +14,8 @@ jobs:
         uses: ./.github/workflows/deploy
         with:
           tag: frontend
-          config: ${{ secrets.KUBE_CONFIG }}
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          config:
 
   deploy-backend:
     runs-on: ubuntu-latest
