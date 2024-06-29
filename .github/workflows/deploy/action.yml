@@ -2,8 +2,11 @@ name: 'deploy'
 
 input:
   tag:
+    required: true
   kubeconfig:
+    required: true
   config:
+    required: true
 
 permissions:
   packages: write
@@ -13,7 +16,7 @@ runs:
   steps:
   - name: config
     shell: bash
-    run: echo "${{ inputs.config }}" > ./${{ inputs.tag }}/deployment/config.properties
+    run: echo "${{ inputs.config }}" >> ./${{ inputs.tag }}/deployment/config.properties
   - name: apply
     uses: actions-hub/kubectl@master
     env:
