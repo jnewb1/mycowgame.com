@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-frontend:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
     - name: build and push
       uses: docker/build-push-action@v6
@@ -18,7 +18,7 @@ jobs:
         context: "frontend"
 
   build-backend:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
     - name: build and push
       uses: docker/build-push-action@v6
