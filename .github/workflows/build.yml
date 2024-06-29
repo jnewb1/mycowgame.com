@@ -6,7 +6,6 @@ on:
       - 'master'
 
 
-
 jobs:
   build-frontend:
     runs-on: ubuntu-latest

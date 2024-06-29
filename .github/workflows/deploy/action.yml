@@ -1,0 +1,22 @@
+name: 'deploy'
+
+input:
+  tag:
+  kubeconfig:
+  config:
+
+permissions:
+  packages: write
+
+runs:
+  using: "composite"
+  steps:
+  - name: config
+    shell: bash
+    run: echo "${{ inputs.config }}" > ./${{ inputs.tag }}/deployment/config.properties
+  - name: apply
+    uses: actions-hub/kubectl@master
+    env:
+      KUBE_CONFIG: ${{ inputs.kubeconfig }}
+    with:
+      args: apply -k ./${{ inputs.tag }}/deployment
