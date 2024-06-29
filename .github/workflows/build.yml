@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu
+    steps:
+    - name: build and push
+      uses: docker/build-push-action@v6
+      with:
+        push: true
+        tags: mycowgame.com/frontend:latest
+        file: docker/Dockerfile.prod
+        context: "frontend"
+
+  build-backend:
+    runs-on: ubuntu
+    steps:
+    - name: build and push
+      uses: docker/build-push-action@v6
+      with:
+        push: true
+        tags: mycowgame.com/backend:latest
+        file: docker/Dockerfile.prod
+        context: "backend"
