@@ -24,14 +24,14 @@ spec:
             name: mycowgame-com-backend
         ports:
         - containerPort: 80
-        image: registry.gitlab.com/jnewb-bclaw/mycowgame.com/backend
+        image: ghcr.io/jnewb1/mycowgame.com/backend
         imagePullPolicy: Always
       - name: mycowgame-com-backend-memcached
         image: memcached
         ports:
         - containerPort: 11211
       imagePullSecrets:
-      - name: gitlab-regcred
+      - name: github-regcred
 ---
 apiVersion: v1
 kind: Service

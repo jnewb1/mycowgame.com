@@ -11,8 +11,8 @@ resources:
   - namespace.yml
 
 images:
-- name: registry.gitlab.com/jnewb-bclaw/mycowgame.com/backend
-  newName: registry.gitlab.com/jnewb-bclaw/mycowgame.com/backend/main
+- name: ghcr.io/jnewb1/mycowgame.com/backend
+  newName: ghcr.io/jnewb1/mycowgame.com/backend/main
 
 patches:
   - target:

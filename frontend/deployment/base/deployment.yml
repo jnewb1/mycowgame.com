@@ -24,7 +24,7 @@ spec:
             name: mycowgame-com-frontend
         ports:
         - containerPort: 80
-        image: registry.gitlab.com/jnewb-bclaw/mycowgame.com/frontend
+        image: ghcr.io/jnewb1/mycowgame.com/frontend
         imagePullPolicy: Always
       imagePullSecrets:
       - name: gitlab-regcred
