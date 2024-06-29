@@ -2,9 +2,7 @@ name: 'build'
 
 inputs:
   tag:
-    required: true
   token:
-    required: true
 
 permissions:
   packages: write
