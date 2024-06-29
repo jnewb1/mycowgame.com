@@ -15,6 +15,7 @@ runs:
     with:
       driver: docker
   - name: login to ghcr.io
+    shell: bash
     run: echo "${{ inputs.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
   - name: build and push
     uses: docker/build-push-action@v6
