@@ -21,4 +21,4 @@ runs:
       push: true
       tags: ghcr.io/jnewb1/meme-creator.com/${{ inputs.tag }}:latest
       file: docker/Dockerfile.prod
-      context: "{{defaultContext}}:${{ inputs.folder }}"
+      context: "{{defaultContext}}:${{ inputs.tag }}"
