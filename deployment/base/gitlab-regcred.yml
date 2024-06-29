@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: gitlab-regcred
-data:
-  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSJyZWdpc3RyeS5naXRsYWIuY29tIjogewogICAgICAgICAgICAiYXV0aCI6ICJaMmwwYkdGaUsyUmxjR3h2ZVMxMGIydGxiaTB4TWpJMU5EWTBPa0ZRTVdaVVZXWTNVazV0V0VVMk5tSjZaSE5uIgogICAgICAgIH0KCX0KfQ==
-type: kubernetes.io/dockerconfigjson
