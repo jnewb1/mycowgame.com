@@ -11,7 +11,7 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout
+    - uses: actions/checkout@v4
     - name: build frontend
       uses: ./.github/workflows/build
       with:
@@ -20,7 +20,7 @@ jobs:
   build-backend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout
+    - uses: actions/checkout@v4
     - name: build backend
       uses: ./.github/workflows/build
       with:
