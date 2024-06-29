@@ -9,20 +9,19 @@ jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: kubeconfig
-        uses: azure/k8s-set-context@v1
+      - uses: actions/checkout@v4
+      - name: deploy frontend
+        uses: ./.github/workflows/deploy
         with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-      - name: deploy
-        run: kubectl apply -f $GITHUB_WORKSPACE/frontend/deployment/deployment.yml
+          tag: frontend
+          config: ${{ secrets.KUBECONFIG }}
+
   deploy-backend:
     runs-on: ubuntu-latest
     steps:
-      - name: kubeconfig
-        uses: azure/k8s-set-context@v1
+      - uses: actions/checkout@v4
+      - name: deploy backend
+        uses: ./.github/workflows/deploy
         with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-      - name: deploy
-        run: kubectl apply -f $GITHUB_WORKSPACE/backend/deployment/deployment.yml
+          tag: frontend
+          config: ${{ secrets.KUBECONFIG }}
