@@ -2,8 +2,11 @@ name: 'deploy'
 
 inputs:
   tag:
+    description: tag
   kubeconfig:
+    description: kubeconfig
   config:
+    description: config
 
 permissions:
   packages: write
