@@ -1,5 +1,5 @@
 # MyCowGame
 
-Code powering the mycowgame.com webpage and backend
+Code powering the [mycowgame.com](https://mycowgame.com) webpage and backend
 
-![alt text](docs/home.png)
+[![homepage](docs/home.png)](https://mycowgame.com)
