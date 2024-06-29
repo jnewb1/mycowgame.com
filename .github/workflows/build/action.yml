@@ -1,6 +1,6 @@
 name: 'build'
 
-input:
+inputs:
   tag:
     required: true
   token:

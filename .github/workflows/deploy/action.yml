@@ -1,12 +1,9 @@
 name: 'deploy'
 
-input:
+inputs:
   tag:
-    required: true
   kubeconfig:
-    required: true
   config:
-    required: true
 
 permissions:
   packages: write
