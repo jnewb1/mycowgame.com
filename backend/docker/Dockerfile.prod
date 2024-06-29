@@ -11,10 +11,6 @@ RUN apk update \
 RUN apk update \
     && apk add jpeg-dev zlib-dev libmagic libffi-dev
 
-<<<<<<< HEAD:backend/docker/Dockerfile.prod
-ENV DJANGO_SETTINGS_MODULE=app.settings.development 
-CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
-=======
 COPY ./requirements.txt .
 RUN pip install -U pip
 RUN pip wheel --wheel-dir /app/wheels gunicorn psycopg2
@@ -47,4 +43,3 @@ CMD gunicorn --workers=5 app.wsgi:application --bind 0.0.0.0:80
 EXPOSE 80
 
 ENTRYPOINT ["/entrypoint.sh"]
->>>>>>> backend/main:docker/Dockerfile.prod
