@@ -13,7 +13,7 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: mycowgame.com/frontend:latest
+        tags: jnewb1/mycowgame.com/frontend:latest
         file: docker/Dockerfile.prod
         context: "{{defaultContext}}:frontend"
 
@@ -24,6 +24,6 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: mycowgame.com/backend:latest
+        tags: jnewb1/mycowgame.com/backend:latest
         file: docker/Dockerfile.prod
         context: "{{defaultContext}}:backend"
