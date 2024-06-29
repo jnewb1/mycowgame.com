@@ -8,6 +8,8 @@ on:
 jobs:
   build-frontend:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
     - name: build and push
       uses: docker/build-push-action@v6
@@ -19,6 +21,8 @@ jobs:
 
   build-backend:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
     - name: build and push
       uses: docker/build-push-action@v6
