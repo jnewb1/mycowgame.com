@@ -1,0 +1,24 @@
+name: 'deploy'
+
+input:
+  tag:
+
+permissions:
+  packages: write
+
+runs:
+  using: "composite"
+  steps:
+   - name: setup docker buildx
+     uses: docker/setup-buildx-action@v1
+      with:
+        driver: docker
+  - name: login to ghcr.io
+    run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+  - name: build and push
+    uses: docker/build-push-action@v6
+    with:
+      push: true
+      tags: ghcr.io/jnewb1/meme-creator.com/${{ inputs.tag }}:latest
+      file: docker/Dockerfile.prod
+      context: "{{defaultContext}}:${{ inputs.folder }}"
