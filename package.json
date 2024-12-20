@@ -1,0 +1,49 @@
+{
+    "name": "app",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "*",
+        "@fortawesome/free-brands-svg-icons": "*",
+        "@fortawesome/free-regular-svg-icons": "*",
+        "@fortawesome/free-solid-svg-icons": "*",
+        "@fortawesome/react-fontawesome": "*",
+        "@supabase/supabase-js": "*",
+        "qrcode": "*",
+        "react": "*",
+        "react-dom": "*",
+        "react-router-dom": "*",
+        "sass": "*",
+        "typescript": "*"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^4.3.4",
+        "vite": "^6.0.4",
+        "vite-plugin-commonjs": "^0.10.4",
+        "vite-plugin-svgr": "^4.3.0",
+        "vite-tsconfig-paths": "^5.1.4"
+    },
+    "scripts": {
+        "start": "vite",
+        "build": "vite build",
+        "serve": "vite preview"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
