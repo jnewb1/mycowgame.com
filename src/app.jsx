@@ -1,5 +1,4 @@
-import { Routes, Route } from "react-router-dom";
-import { Meta } from "react-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 // Style
 import "./style/components.scss";
@@ -19,20 +18,20 @@ function App() {
 
   return (
     <>
-      <Meta>
-        <title>{TITLE}</title>
-        <meta name="description" content={DESCRIPTION} />
-        <meta property="og:title" content={TITLE} />
-        <link rel="canonical" href={`${window.location.origin}/`} />
-      </Meta>
+      <title>{TITLE}</title>
+      <meta name="description" content={DESCRIPTION} />
+      <meta property="og:title" content={TITLE} />
+      <link rel="canonical" href={`${window.location.origin}/`} />
 
+      <BrowserRouter>
       <Nav />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/how-to-play" element={<HowToPlay />} />
-        <Route path="/join" element={<JoinGame />} />
-        <Route path="/game/:id" element={<Game />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/how-to-play" element={<HowToPlay />} />
+          <Route path="/join" element={<JoinGame />} />
+          <Route path="/game/:id" element={<Game />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

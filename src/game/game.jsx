@@ -89,8 +89,8 @@ function Game() {
 
           <div className="row">
             <div>
-            <button class="action_button" id="copy_button" onClick={() => navigator.clipboard.writeText(getGameUrl())}><FontAwesomeIcon icon={faCopy}></FontAwesomeIcon></button>
-            <button class="action_button"id="qr_button" onClick={() => openQR()}><FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon></button>
+            <button className="action_button" id="copy_button" onClick={() => navigator.clipboard.writeText(getGameUrl())}><FontAwesomeIcon icon={faCopy}></FontAwesomeIcon></button>
+            <button className="action_button"id="qr_button" onClick={() => openQR()}><FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon></button>
             </div>
           </div>
 
