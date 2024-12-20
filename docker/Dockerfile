@@ -1,3 +1,3 @@
-FROM node:16-buster
+FROM node:18-buster
 
-RUN apt update && apt install git imagemagick
+RUN apt update && apt install -y git imagemagick
