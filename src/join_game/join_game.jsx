@@ -5,13 +5,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const JoinGame = function () {
-  const [gameKey, setGameKey] = useState("");
+  const [gameID, setGameID] = useState("");
   const navigate = useNavigate();
 
   function onJoinGame() {
-    getGame({ pk: gameKey }).then((response) => {
+    getGame(gameID).then((response) => {
       if (response.ok) {
-        navigate(`/game/${gameKey}`);
+        navigate(`/game/${gameID}`);
       } else {
         window.alert(
           "ERROR - Invalid key, game does not exist\nKey should be 8 characters long"
@@ -30,7 +30,7 @@ const JoinGame = function () {
         <input
           id="key_input_box"
           type="text"
-          onInput={(e) => setGameKey(e.target.value)}
+          onInput={(e) => setGameID(e.target.value)}
         />
       </div>
 
