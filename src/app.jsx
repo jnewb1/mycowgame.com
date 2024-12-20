@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import MetaTags from "react-meta-tags";
+import { Meta } from "react-dom";
 
 // Style
 import "./style/components.scss";
@@ -19,12 +19,12 @@ function App() {
 
   return (
     <>
-      <MetaTags>
+      <Meta>
         <title>{TITLE}</title>
         <meta name="description" content={DESCRIPTION} />
         <meta property="og:title" content={TITLE} />
         <link rel="canonical" href={`${window.location.origin}/`} />
-      </MetaTags>
+      </Meta>
 
       <Nav />
       <Routes>
