@@ -9,8 +9,8 @@ const JoinGame = function () {
   const navigate = useNavigate();
 
   function onJoinGame() {
-    getGame(gameID).then((response) => {
-      if (response.ok) {
+    getGame(gameID).then((game) => {
+      if (game.data.length) {
         navigate(`/game/${gameID}`);
       } else {
         window.alert(
