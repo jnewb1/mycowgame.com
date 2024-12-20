@@ -26,10 +26,6 @@ const useGet = (func, params = {}) => {
         setU(u => !u)
     }
 
-    useDeepCompareEffect(() => {
-        func(params).then(response => setResponse(response))
-    }, [func, params, u])
-
     useEffect(() => {
         if (response) {
             if (response.ok) {
