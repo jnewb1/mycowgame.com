@@ -5,18 +5,37 @@ import {
   faHorseHead,
   faChurch,
   faSkull,
+  faSpinner
 } from "@fortawesome/free-solid-svg-icons";
 
 import { playerAction } from "../api";
 
+import {useState} from "react";
+
+
+function ActionButton(props) {
+  let {icon, onClick, disabled, waiting} = props;
+
+  return <button
+      className={"button player-card-action-button" + ((disabled || waiting) ? " disabled" : "")}
+      onClick={onClick}
+    >
+      <FontAwesomeIcon className={"fa-icon"} icon={icon} />
+  </button>
+}
+
 function PlayerCard(props) {
-  const { gameData, player, forceUpdate, onDeleteRequest } = props;
+  const { gameData, player, onDeleteRequest } = props;
+
+  const [actionsDisabled, setActionsDisabled] = useState(false);
 
   const onPlayerAction = (name, action) => {
+    setActionsDisabled(true);
     playerAction(gameData.id, name, action).then(({ data }) => {
-
+      setActionsDisabled(false);
     });
   };
+
 
   return (
     <>
@@ -39,30 +58,9 @@ function PlayerCard(props) {
 
           {/* My Cow Buttons */}
           <div className="row margin-small">
-            <button
-              className="button player-card-action-button"
-              onClick={() => onPlayerAction(player.name, "cow")}
-            >
-              <FontAwesomeIcon className="fa-icon" icon={faHorseHead} />
-            </button>
-            <button
-              className={
-                "button player-card-action-button" +
-                (player.points > 1 ? "" : " disabled")
-              }
-              onClick={() => onPlayerAction(player.name, "church")}
-            >
-              <FontAwesomeIcon className="fa-icon" icon={faChurch} />
-            </button>
-            <button
-              className={
-                "button player-card-action-button" +
-                (player.points > 0 ? "" : " disabled")
-              }
-              onClick={() => onPlayerAction(player.name, "graveyard")}
-            >
-              <FontAwesomeIcon className="fa-icon" icon={faSkull} />
-            </button>
+            <ActionButton disabled={false} waiting={actionsDisabled} icon={faHorseHead}  onClick={() => onPlayerAction(player.name, "cow")}/>
+            <ActionButton disabled={player.points > 1 ? "" : " disabled"} waiting={actionsDisabled} icon={faChurch}  onClick={() => onPlayerAction(player.name, "church")}/>
+            <ActionButton disabled={false} waiting={actionsDisabled} icon={faSkull}  onClick={() => onPlayerAction(player.name, "graveyard")}/>
           </div>
         </div>
       </div>
