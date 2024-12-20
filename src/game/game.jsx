@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { addPlayer, useGame, removePlayer } from "../api";
+import { createPlayer, useGame, removePlayer } from "../api";
 import "./game.scss";
 
 import PlayerCard from "./playercard";
-import { ConfirmationModal, AlertModal } from "../modals/modals";
+import { ConfirmationModal, AlertModal, QRModal } from "../modals/modals";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCopy
+  faCopy,
+  faQrcode
 } from "@fortawesome/free-solid-svg-icons";
+
+import QRCode from 'qrcode';
 
 function Game() {
   const { id } = useParams();
   let [confirmModalOpen, setConfirmModalOpen] = useState(false);
   let [alertModalOpen, setAlertModalOpen] = useState(false);
+  let [qrModalOpen, setQRModalOpen] = useState(false);
   let [playerToDelete, setPlayerToDelete] = useState("");
 
   let [newPlayerName, setNewPlayerName] = useState("");
 
-  const { data: gameData, errors, loaded, update } = useGame(id);
-
-  const forceUpdate = () => {
-    update();
-  };
+  const gameData = useGame(id);
 
   const onAddPlayer = (name) => {
     let playerNameTaken = false;
@@ -32,16 +32,30 @@ function Game() {
         gameData.players.filter((p) => p.name === name).length > 0;
     }
 
-    console.log("Hello", playerNameTaken);
-
     if (playerNameTaken === false) {
-      addPlayer(gameData.pk, name).then(({ data }) => {
-        forceUpdate();
+      createPlayer(gameData.id, name).then(({ data }) => {
+
       });
     } else {
       setAlertModalOpen(true);
     }
   };
+
+  const getGameUrl = () => `${window.location.origin}/game/${gameData.id}`
+
+
+  useEffect(() => {
+    if(qrModalOpen) {
+      let canvas = document.getElementById("qrcode");
+      QRCode.toCanvas(canvas, getGameUrl(), function (error) {
+
+      })
+    }
+  }, [qrModalOpen])
+
+  const openQR = () => {
+    setQRModalOpen(true);
+  }
 
   const onDeleteRequest = (name) => {
     setConfirmModalOpen(true);
@@ -49,24 +63,16 @@ function Game() {
   };
 
   const deletePlayer = (name) => {
-    removePlayer(gameData.pk, name)
-      .then(({ data }) => {
-        forceUpdate();
+    removePlayer(gameData.id, name)
+      .then(({ data}) => {
+
       })
       .then(() => {
         setConfirmModalOpen(false);
       });
   };
 
-  useEffect(() => {
-    let h = setInterval(forceUpdate, 500);
-
-    return () => {
-      clearInterval(h);
-    };
-  }, []);
-
-  if (!loaded) {
+  if (!gameData) {
     return (
       <div className="row margin-large">
         <h4>loading...</h4>
@@ -78,11 +84,14 @@ function Game() {
     <>
       <span className={confirmModalOpen || alertModalOpen ? "disabled" : ""}>
         <div className="row margin-small">
-            <h2 id="game_id_label">{"Game ID: " + gameData.pk}</h2>
+            <h2 id="game_id_label">{"Game ID: " + gameData.id}</h2>
         </div>
 
           <div className="row">
-            <button id="copy_button" onClick={() => navigator.clipboard.writeText(gameData.pk)}><FontAwesomeIcon icon={faCopy}></FontAwesomeIcon></button>
+            <div>
+            <button class="action_button" id="copy_button" onClick={() => navigator.clipboard.writeText(getGameUrl())}><FontAwesomeIcon icon={faCopy}></FontAwesomeIcon></button>
+            <button class="action_button"id="qr_button" onClick={() => openQR()}><FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon></button>
+            </div>
           </div>
 
         <div className="row margin-small" id="add_new_player_container">
@@ -114,7 +123,6 @@ function Game() {
             key={player.name}
             gameData={gameData}
             player={player}
-            forceUpdate={forceUpdate}
             onDeleteRequest={onDeleteRequest}
           ></PlayerCard>
         ))}
@@ -139,6 +147,14 @@ function Game() {
             setAlertModalOpen(false);
           }}
         ></AlertModal>
+      )}
+
+      {qrModalOpen && (
+        <QRModal
+          confirmAction={() => {
+            setQRModalOpen(false);
+          }}
+        ></QRModal>
       )}
     </>
   );

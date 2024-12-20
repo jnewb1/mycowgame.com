@@ -13,8 +13,8 @@ function PlayerCard(props) {
   const { gameData, player, forceUpdate, onDeleteRequest } = props;
 
   const onPlayerAction = (name, action) => {
-    playerAction(gameData.pk, name, action).then(({ data }) => {
-      forceUpdate();
+    playerAction(gameData.id, name, action).then(({ data }) => {
+
     });
   };
 
@@ -41,7 +41,7 @@ function PlayerCard(props) {
           <div className="row margin-small">
             <button
               className="button player-card-action-button"
-              onClick={() => onPlayerAction(player.name, "My Cow")}
+              onClick={() => onPlayerAction(player.name, "cow")}
             >
               <FontAwesomeIcon className="fa-icon" icon={faHorseHead} />
             </button>
@@ -50,7 +50,7 @@ function PlayerCard(props) {
                 "button player-card-action-button" +
                 (player.points > 1 ? "" : " disabled")
               }
-              onClick={() => onPlayerAction(player.name, "Marry My Cows")}
+              onClick={() => onPlayerAction(player.name, "church")}
             >
               <FontAwesomeIcon className="fa-icon" icon={faChurch} />
             </button>
@@ -59,7 +59,7 @@ function PlayerCard(props) {
                 "button player-card-action-button" +
                 (player.points > 0 ? "" : " disabled")
               }
-              onClick={() => onPlayerAction(player.name, "Kill Your Cows")}
+              onClick={() => onPlayerAction(player.name, "graveyard")}
             >
               <FontAwesomeIcon className="fa-icon" icon={faSkull} />
             </button>

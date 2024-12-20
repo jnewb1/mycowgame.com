@@ -3,7 +3,7 @@
 {
     "name": "frontend",
     "context": "..",
-    "dockerFile": "../docker/Dockerfile.dev",
+    "dockerFile": "../docker/Dockerfile",
     "customizations": {
         "vscode": {
             "settings": {},
