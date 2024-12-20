@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { api_server } from './settings';
-import useDeepCompareEffect from 'use-deep-compare-effect'
+
 
 let fetchFunc = (url, options = {}) => {
     let finalOptions = Object.assign(options, {})
@@ -12,6 +12,7 @@ const getGame = (params) => {
 
     return fetchFunc(`${api_server}games/${pk}/`)
 }
+
 
 const useGet = (func, params = {}) => {
     let [data, setData] = useState(null);

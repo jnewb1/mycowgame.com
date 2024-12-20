@@ -1,6 +1,0 @@
-configMapGenerator:
-- name: mycowgame-com-backend
-  env: config.properties
-
-resources:
-  - deployment.yml
