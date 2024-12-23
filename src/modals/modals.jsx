@@ -24,7 +24,6 @@ const QRModal = function (props) {
   );
 };
 
-
 const ConfirmationModal = function (props) {
   const { prompt, cancelAction, confirmAction } = props;
   return (
