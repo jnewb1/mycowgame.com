@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/docker-existing-dockerfile
 {
-    "name": "frontend",
+    "name": "mycowgame.com",
     "context": "..",
     "dockerFile": "../docker/Dockerfile",
     "customizations": {
@@ -9,5 +9,8 @@
             "settings": {},
             "extensions": [],
         }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils": ""
     }
 }
