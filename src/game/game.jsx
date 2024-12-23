@@ -82,7 +82,7 @@ function Game() {
 
   return (
     <>
-      <span className={confirmModalOpen || alertModalOpen ? "disabled" : ""}>
+      <span className={(confirmModalOpen || alertModalOpen || qrModalOpen) ? "disabled" : ""}>
         <div className="row margin-small">
             <h2 id="game_id_label">{"Game ID: " + gameData.id}</h2>
         </div>

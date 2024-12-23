@@ -15,7 +15,7 @@ const QRModal = function (props) {
       </div>
 
       <div className="row margin-small">
-        <button className="error-button modal-button" onClick={confirmAction}>
+        <button className="button modal-button" onClick={confirmAction}>
           Confirm
         </button>
       </div>
