@@ -27,7 +27,6 @@ const QRModal = function (props) {
 
 const ConfirmationModal = function (props) {
   const { prompt, cancelAction, confirmAction } = props;
-
   return (
     <div className="modal">
       <div className="row margin-small">
