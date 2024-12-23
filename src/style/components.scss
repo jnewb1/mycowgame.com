@@ -1,6 +1,6 @@
 $color-background: rgb(240, 240, 242);
 $color-primary: #ffffff;
-$color-primary-hover: #ffffff;
+$color-primary-hover: #f7f7f7;
 $color-secondary: #0446aa;
 $color-secondary-hover: #0c5dd8;
 $color-error: #c50000;
@@ -28,7 +28,7 @@ h6 {
 
   &:hover {
     cursor: pointer;
-    // background-color: $color-primary-hover;
+    background-color: $color-primary-hover;
   }
 }
 
@@ -42,6 +42,19 @@ h6 {
   &:hover {
     cursor: pointer;
     background-color: $color-error-hover;
+  }
+}
+
+.secondary-button {
+  background-color: $color-secondary;
+  border: 1px $color-secondary solid;
+  border-radius: 3px;
+
+  color: $color-primary;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-secondary-hover;
   }
 }
 
