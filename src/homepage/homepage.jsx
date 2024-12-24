@@ -14,8 +14,6 @@ function Homepage() {
 
     return (
         <>
-            
-
             <div className="row margin-small">
                 <h1 id="homepage_subtitle">The cow-collecting road trip game</h1>
             </div>

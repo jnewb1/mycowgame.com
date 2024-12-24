@@ -16,7 +16,7 @@ function Nav() {
                 }}
             >
                 <div className="row">
-                    <h1>MY COW</h1>
+                    <h1 id="navbar_text">MY COW</h1>
                 </div>
             </div>
             <div className="row margin-extra-small">
