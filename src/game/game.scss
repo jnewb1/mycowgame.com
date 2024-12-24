@@ -8,7 +8,7 @@
 
 // New Player
 
-$player_name_input_height: 24px;
+$player_name_input_height: 32px;
 $player_name_input_padding: 4px;
 
 #add_new_player_container {
@@ -32,8 +32,9 @@ $player_name_input_padding: 4px;
 }
 
 .action_button {
-  font-size: $player_name_input_height;
-  width: 5vw;
+  font-size: $player_name_input_height * 2;
+  width: 15vw;
+  margin: 2px;
   padding: $player_name_input_padding 0px;
   &:hover {
     cursor: pointer;
