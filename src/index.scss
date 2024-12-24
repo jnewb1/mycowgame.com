@@ -5,7 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: black;
+  user-select: none;
+}
+
+button, a {
+  color: #000000;
+  text-decoration: none;
 }
 
 #root {
