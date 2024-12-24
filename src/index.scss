@@ -5,7 +5,25 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  user-select: none;
   color: black;
+
+  // test iphone make it not blue
+  -webkit-touch-callout: none;
+  /* Disable callout menu for links */
+  -webkit-user-select: none;
+  /* Prevent text selection */
+  text-decoration: none;
+}
+
+/* Prevent Safari from styling phone numbers and links */
+a,
+a:link,
+a:visited {
+  color: inherit;
+  /* Use your custom text color */
+  text-decoration: none;
+  /* Remove underline if applied */
 }
 
 #root {
