@@ -6,7 +6,9 @@
     "dockerFile": "../docker/Dockerfile",
     "customizations": {
         "vscode": {
-            "settings": {},
+            "settings": {
+                "remote.localPortHost": "allInterfaces"
+            },
             "extensions": [],
         }
     },
