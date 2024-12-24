@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { createGame } from "../api";
-
 import "./homepage.scss";
 
 function Homepage() {
@@ -15,7 +14,9 @@ function Homepage() {
 
     return (
         <>
-            <div className="row">
+            
+
+            <div className="row margin-small">
                 <h1 id="homepage_subtitle">The cow-collecting road trip game</h1>
             </div>
 

@@ -44,7 +44,7 @@ const JoinGame = function () {
                 </button>
             </div>
 
-            <div className="row margin-medium">
+            <div className="row margin-small">
                 <button className="main-menu-button" onClick={() => navigate("/")}>
                     Return to Homepage
                 </button>
