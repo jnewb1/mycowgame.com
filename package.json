@@ -13,6 +13,7 @@
         "react": "*",
         "react-dom": "*",
         "react-router-dom": "*",
+        "recharts": "^2.15.0",
         "sass": "*",
         "typescript": "*"
     },

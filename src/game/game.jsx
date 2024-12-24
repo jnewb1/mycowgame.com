@@ -14,6 +14,15 @@ import {
 
 import QRCode from 'qrcode';
 
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
+const data = [
+    { a: 400, b: 2400, c: 2400 },
+    { a: 300, b: 1398, c: 2210 },
+    { a: 200, b: 1398, c: 2210 },
+    { a: 300, b: 1398, c: 2210 },
+];
+
 function Game() {
     const { id } = useParams();
     let [confirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -42,6 +51,7 @@ function Game() {
 
     const getGameUrl = () => `${window.location.origin}/game/${gameData.id}`
 
+    const indexedData = data.map((item, index) => ({ ...item, index }));
 
     useEffect(() => {
         if (qrModalOpen) {
@@ -124,6 +134,19 @@ function Game() {
                         onDeleteRequest={onDeleteRequest}
                     ></PlayerCard>
                 ))}
+
+
+                <div className="row margin-small">
+                    <LineChart width={500} height={300} data={indexedData}>
+                        <CartesianGrid strokeDasharray="5 5" />
+                        <XAxis dataKey="index" />
+                        <YAxis />
+                        <Line type="monotone" dataKey="a" stroke="#8884d8" />
+                        <Line type="monotone" dataKey="b" stroke="#ff88d8" />
+                        <Tooltip />
+                        <Legend />
+                    </LineChart>
+                </div>
             </span>
 
             {confirmModalOpen && (
