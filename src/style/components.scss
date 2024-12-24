@@ -14,7 +14,7 @@ h4,
 h5,
 h6 {
   text-align: center;
-  width: 200px;
+  width: fit-content;
   margin: 0px;
   padding: 0px;
 }
@@ -60,12 +60,12 @@ h6 {
 
 .main-menu-button {
   width: 65vw;
-  height: 7.5vh;
+  height: 8vh;
+  min-height: 100px;
   background-color: $color-primary;
   border: 1px black solid;
   border-radius: 15px;
-
-  font-size: 20px;
+  font-size: 54px;
 
   &:hover {
     cursor: pointer;

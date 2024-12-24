@@ -20,7 +20,6 @@ function Game() {
     let [alertModalOpen, setAlertModalOpen] = useState(false);
     let [qrModalOpen, setQRModalOpen] = useState(false);
     let [playerToDelete, setPlayerToDelete] = useState("");
-
     let [newPlayerName, setNewPlayerName] = useState("");
 
     const gameData = useGame(id);
@@ -82,8 +81,8 @@ function Game() {
                     <h2 id="game_id_label">{"Game ID: " + gameData.id}</h2>
                 </div>
 
-                <div className="row">
-                    <div>
+                <div className="row margin-extra-small">
+                    <div id="game_id_action_buttons">
                         <button className="action_button" id="copy_button" onClick={() => navigator.clipboard.writeText(getGameUrl())}>
                             <FontAwesomeIcon icon={faCopy}></FontAwesomeIcon>
                         </button>
