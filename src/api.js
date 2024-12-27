@@ -13,19 +13,17 @@ const fetchGame = (gameID) => supabase.from("games").select('id, players (id, na
 
 
 const ACTIONS = {
-  "cow": (player, other_players) => player.points += 1,
-  "church": (player, other_players) => player.points *= 2,
-  "graveyard": (player, other_players) => other_players.forEach((player) => player.points = 0),
+  "cow": player => player.points += 1,
+  "church": player => player.points *= 2,
+  "graveyard": player => player.points = 0,
 }
 
 const calculatePoints = (game) => {
   game.players.forEach(player => player.points = 0);
 
-  const getOtherPlayers = (player) => game.players.filter(p => !player || p.id != player.id);
-
   const applyAction = (action) => {
     if (action.player) {
-      ACTIONS[action.game_action](action.player, getOtherPlayers(action.player))
+      ACTIONS[action.game_action](action.player)
     }
   };
 
