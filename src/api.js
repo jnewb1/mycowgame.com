@@ -7,35 +7,35 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-const getData = (resp) => resp.data; 
+const getData = (resp) => resp.data;
 
-const fetchGame = (gameID) => supabase.from("games").select('id, players (id, name), actions (created_at, game_action, player)').match({id: gameID}).maybeSingle().then(getData);
+const fetchGame = (gameID) => supabase.from("games").select('id, players (id, name), actions (created_at, game_action, player)').match({ id: gameID }).maybeSingle().then(getData);
 
 
 const ACTIONS = {
-  "cow": (player, other_players) => player.points += 1,
-  "church": (player, other_players) => player.points *= 2,
-  "graveyard": (player, other_players) => other_players.forEach((player) => player.points = 0),
+    "cow": (player, other_players) => player.points += 1,
+    "church": (player, other_players) => player.points *= 2,
+    "graveyard": (player, other_players) => other_players.forEach((player) => player.points = 0),
 }
 
 const calculatePoints = (game) => {
-  game.players.forEach(player => player.points = 0);
+    game.players.forEach(player => player.points = 0);
 
-  const getOtherPlayers = (player) => game.players.filter(p => !player || p.id != player.id);
+    const getOtherPlayers = (player) => game.players.filter(p => !player || p.id != player.id);
 
-  const applyAction = (action) => {
-    if (action.player) {
-      ACTIONS[action.game_action](action.player, getOtherPlayers(action.player))
+    const applyAction = (action) => {
+        if (action.player_object) {
+            ACTIONS[action.game_action](action.player_object, getOtherPlayers(action.player_object))
+        }
+    };
+
+    const addPlayerToAction = (action) => {
+        action.player_object = game.players.filter(p => p.id == action.player)[0];
     }
-  };
 
-  const addPlayerToAction = (action) => {
-    action.player = game.players.filter(p => p.id == action.player)[0];
-  }
-
-  game.actions.forEach(addPlayerToAction)
-  game.actions.forEach(applyAction);
-  return game;
+    game.actions.forEach(addPlayerToAction)
+    game.actions.forEach(applyAction);
+    return game;
 }
 
 
@@ -48,15 +48,15 @@ const useGame = (gameID) => {
         fetch();
 
         const channel = supabase
-          .channel("game")
-          .on("postgres_changes", {event: "*", table: "actions", filter: `game=eq.${gameID}`}, (payload) => fetch())
-          .on("postgres_changes", {event: "*", table: "players", filter: `game=eq.${gameID}`}, (payload) => fetch())
-          .subscribe()
-    
+            .channel("game")
+            .on("postgres_changes", { event: "*", table: "actions", filter: `game=eq.${gameID}` }, (payload) => fetch())
+            .on("postgres_changes", { event: "*", table: "players", filter: `game=eq.${gameID}` }, (payload) => fetch())
+            .subscribe()
+
         return () => {
-          channel.unsubscribe(); 
+            channel.unsubscribe();
         };
-      }, [gameID]);
+    }, [gameID]);
 
     return game;
 }
@@ -65,12 +65,12 @@ const getGame = (gameID) => supabase.from("games").select().match({ id: gameID }
 
 const createGame = () => supabase.from("games").insert({}).select();
 
-const getPlayer = (gameID, name) => supabase.from("players").select().match({game: gameID, name: name}).maybeSingle().then(getData);
-const createPlayer = (gameID, name) => supabase.from("players").insert({game: gameID, name: name}).select();
+const getPlayer = (gameID, name) => supabase.from("players").select().match({ game: gameID, name: name }).maybeSingle().then(getData);
+const createPlayer = (gameID, name) => supabase.from("players").insert({ game: gameID, name: name }).select();
 const removePlayer = (gameID, name) => getPlayer(gameID, name).then(player => supabase.from("players").delete().eq("id", player.id));
 
 const playerAction = (gameID, name, action) => {
-  return getPlayer(gameID, name).then(player => supabase.from("actions").insert({game: gameID, player: player.id, game_action: action}));
+    return getPlayer(gameID, name).then(player => supabase.from("actions").insert({ game: gameID, player: player.id, game_action: action }));
 }
 
-export { useGame, createGame, fetchGame, getGame, createPlayer, removePlayer, playerAction }
+export { useGame, createGame, fetchGame, getGame, createPlayer, removePlayer, playerAction, calculatePoints }

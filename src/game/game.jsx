@@ -4,30 +4,23 @@ import { createPlayer, useGame, removePlayer } from "../api";
 import "./game.scss";
 
 import PlayerCard from "./playercard";
-import { ConfirmationModal, AlertModal, QRModal } from "../modals/modals";
+import { ConfirmationModal, AlertModal, QRModal, ScoreGraphModal } from "../modals/modals";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCopy,
-    faQrcode
+    faQrcode,
+    faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 
 import QRCode from 'qrcode';
-
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-
-const data = [
-    { a: 400, b: 2400, c: 2400 },
-    { a: 300, b: 1398, c: 2210 },
-    { a: 200, b: 1398, c: 2210 },
-    { a: 300, b: 1398, c: 2210 },
-];
 
 function Game() {
     const { id } = useParams();
     let [confirmModalOpen, setConfirmModalOpen] = useState(false);
     let [alertModalOpen, setAlertModalOpen] = useState(false);
     let [qrModalOpen, setQRModalOpen] = useState(false);
+    let [scoreGraphModalOpen, setScoreGraphModalOpen] = useState(false);
     let [playerToDelete, setPlayerToDelete] = useState("");
     let [newPlayerName, setNewPlayerName] = useState("");
 
@@ -50,8 +43,6 @@ function Game() {
     };
 
     const getGameUrl = () => `${window.location.origin}/game/${gameData.id}`
-
-    const indexedData = data.map((item, index) => ({ ...item, index }));
 
     useEffect(() => {
         if (qrModalOpen) {
@@ -76,6 +67,10 @@ function Game() {
             });
     };
 
+    const onShowScoreGraphs = () => {
+        setScoreGraphModalOpen(true);
+    };
+
     if (!gameData) {
         return (
             <div className="row margin-large">
@@ -86,8 +81,13 @@ function Game() {
 
     return (
         <>
-            <span className={(confirmModalOpen || alertModalOpen || qrModalOpen) ? "disabled" : ""}>
+            <span className={(confirmModalOpen || alertModalOpen || qrModalOpen || scoreGraphModalOpen) ? "disabled" : ""}>
+
                 <div className="row margin-small">
+                    <h1 id="share_label">{"Share Game:"}</h1>
+                </div>
+
+                <div className="row margin-extra-small">
                     <h2 id="game_id_label">{"Game ID: " + gameData.id}</h2>
                 </div>
 
@@ -100,6 +100,16 @@ function Game() {
                             <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
                         </button>
                     </div>
+                </div>
+
+                <div className="row margin-small">
+                    <h1 id="share_label">{"Show Score History:"}</h1>
+                </div>
+
+                <div className="row margin-extra-small">
+                    <button className="action_button" id="show_scores_button" onClick={() => onShowScoreGraphs()}>
+                        <FontAwesomeIcon icon={faChartLine}></FontAwesomeIcon>
+                    </button>
                 </div>
 
                 <div className="row margin-small" id="add_new_player_container">
@@ -134,19 +144,6 @@ function Game() {
                         onDeleteRequest={onDeleteRequest}
                     ></PlayerCard>
                 ))}
-
-
-                <div className="row margin-small">
-                    <LineChart width={500} height={300} data={indexedData}>
-                        <CartesianGrid strokeDasharray="5 5" />
-                        <XAxis dataKey="index" />
-                        <YAxis />
-                        <Line type="monotone" dataKey="a" stroke="#8884d8" />
-                        <Line type="monotone" dataKey="b" stroke="#ff88d8" />
-                        <Tooltip />
-                        <Legend />
-                    </LineChart>
-                </div>
             </span>
 
             {confirmModalOpen && (
@@ -176,6 +173,10 @@ function Game() {
                         setQRModalOpen(false);
                     }}
                 ></QRModal>
+            )}
+
+            {scoreGraphModalOpen && (
+                <ScoreGraphModal gameData={gameData} />
             )}
         </>
     );
