@@ -117,7 +117,7 @@ function Game() {
                     </div>
                 </div>
 
-                {gameData.players.map((player) => (
+                {gameData.players.filter((player) => !player.deleted).map((player) => (
                     <PlayerCard
                         key={player.name}
                         gameData={gameData}

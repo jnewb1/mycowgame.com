@@ -9,7 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 const getData = (resp) => resp.data; 
 
-const fetchGame = (gameID) => supabase.from("games").select('id, players (id, name), actions (created_at, game_action, player)').match({id: gameID}).maybeSingle().then(getData);
+const fetchGame = (gameID) => supabase.from("games").select('id, players (id, name, deleted), actions (created_at, game_action, player)').match({id: gameID}).maybeSingle().then(getData);
 
 
 const ACTIONS = {
@@ -67,7 +67,7 @@ const createGame = () => supabase.from("games").insert({}).select();
 
 const getPlayer = (gameID, name) => supabase.from("players").select().match({game: gameID, name: name}).maybeSingle().then(getData);
 const createPlayer = (gameID, name) => supabase.from("players").insert({game: gameID, name: name}).select();
-const removePlayer = (gameID, name) => getPlayer(gameID, name).then(player => supabase.from("players").delete().eq("id", player.id));
+const removePlayer = (gameID, name) => getPlayer(gameID, name).then(player => supabase.from("players").update({deleted: true}).eq("id", player.id));
 
 const playerAction = (gameID, name, action) => {
   return getPlayer(gameID, name).then(player => supabase.from("actions").insert({game: gameID, player: player.id, game_action: action}));
