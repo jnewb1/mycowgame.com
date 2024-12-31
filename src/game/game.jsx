@@ -176,7 +176,7 @@ function Game() {
             )}
 
             {scoreGraphModalOpen && (
-                <ScoreGraphModal gameData={gameData} />
+                <ScoreGraphModal gameData={gameData} backAction={() => { setScoreGraphModalOpen(false)}} />
             )}
         </>
     );
