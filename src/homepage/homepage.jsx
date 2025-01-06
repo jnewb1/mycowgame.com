@@ -7,7 +7,7 @@ function Homepage() {
 
     const createNewGame = () => {
         createGame().then(({ data }) => {
-            data = data[0]
+            data = data[0];
             navigate(`/game/${data.id}`);
         });
     };
