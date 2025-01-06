@@ -44,6 +44,7 @@ function Game() {
 
     const getGameUrl = () => `${window.location.origin}/game/${gameData.id}`;
 
+
     useEffect(() => {
         if (qrModalOpen) {
             const canvas = document.getElementById("qrcode");

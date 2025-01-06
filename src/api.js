@@ -34,6 +34,18 @@ const calculatePoints = (game) => {
     game.actions.forEach(addPlayerToAction);
     game.actions.forEach(applyAction);
     return game;
+    if (action.player) {
+      ACTIONS[action.game_action](action.player);
+    }
+  };
+
+  const addPlayerToAction = (action) => {
+    action.player = game.players.filter(p => p.id == action.player)[0];
+  };
+
+  game.actions.forEach(addPlayerToAction);
+  game.actions.forEach(applyAction);
+  return game;
 };
 
 
@@ -51,6 +63,11 @@ const useGame = (gameID) => {
             .on("postgres_changes", { event: "*", table: "players", filter: `game=eq.${gameID}` }, (payload) => fetch())
             .subscribe();
 
+          .channel("game")
+          .on("postgres_changes", {event: "*", table: "actions", filter: `game=eq.${gameID}`}, (payload) => fetch())
+          .on("postgres_changes", {event: "*", table: "players", filter: `game=eq.${gameID}`}, (payload) => fetch())
+          .subscribe();
+    
         return () => {
             channel.unsubscribe();
         };
@@ -72,3 +89,7 @@ const playerAction = (gameID, name, action) => {
 };
 
 export { useGame, createGame, fetchGame, getGame, createPlayer, removePlayer, playerAction, calculatePoints };
+  return getPlayer(gameID, name).then(player => supabase.from("actions").insert({game: gameID, player: player.id, game_action: action}));
+};
+
+export { useGame, createGame, fetchGame, getGame, createPlayer, removePlayer, playerAction };
