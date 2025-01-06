@@ -9,6 +9,7 @@
         "@fortawesome/free-solid-svg-icons": "*",
         "@fortawesome/react-fontawesome": "*",
         "@supabase/supabase-js": "*",
+        "eslint": "^9.17.0",
         "qrcode": "*",
         "react": "*",
         "react-dom": "*",
@@ -26,7 +27,8 @@
     "scripts": {
         "start": "vite",
         "build": "vite build",
-        "serve": "vite preview"
+        "serve": "vite preview",
+        "lint": "eslint --fix ."
     },
     "eslintConfig": {
         "extends": [
