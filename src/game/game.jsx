@@ -17,12 +17,12 @@ import QRCode from 'qrcode';
 
 function Game() {
     const { id } = useParams();
-    let [confirmModalOpen, setConfirmModalOpen] = useState(false);
-    let [alertModalOpen, setAlertModalOpen] = useState(false);
-    let [qrModalOpen, setQRModalOpen] = useState(false);
-    let [scoreGraphModalOpen, setScoreGraphModalOpen] = useState(false);
-    let [playerToDelete, setPlayerToDelete] = useState("");
-    let [newPlayerName, setNewPlayerName] = useState("");
+    const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+    const [alertModalOpen, setAlertModalOpen] = useState(false);
+    const [qrModalOpen, setQRModalOpen] = useState(false);
+    const [scoreGraphModalOpen, setScoreGraphModalOpen] = useState(false);
+    const [playerToDelete, setPlayerToDelete] = useState("");
+    const [newPlayerName, setNewPlayerName] = useState("");
 
     const gameData = useGame(id);
 
@@ -42,18 +42,18 @@ function Game() {
         }
     };
 
-    const getGameUrl = () => `${window.location.origin}/game/${gameData.id}`
+    const getGameUrl = () => `${window.location.origin}/game/${gameData.id}`;
 
     useEffect(() => {
         if (qrModalOpen) {
-            let canvas = document.getElementById("qrcode");
-            QRCode.toCanvas(canvas, getGameUrl(), function (error) { })
+            const canvas = document.getElementById("qrcode");
+            QRCode.toCanvas(canvas, getGameUrl(), function (error) { });
         }
-    }, [qrModalOpen])
+    }, [qrModalOpen]);
 
     const openQR = () => {
         setQRModalOpen(true);
-    }
+    };
 
     const onDeleteRequest = (name) => {
         setConfirmModalOpen(true);
@@ -176,7 +176,7 @@ function Game() {
             )}
 
             {scoreGraphModalOpen && (
-                <ScoreGraphModal gameData={gameData} backAction={() => { setScoreGraphModalOpen(false)}} />
+                <ScoreGraphModal gameData={gameData} backAction={() => { setScoreGraphModalOpen(false);}} />
             )}
         </>
     );

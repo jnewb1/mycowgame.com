@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { calculatePoints } from "../api"
+import { calculatePoints } from "../api";
 import distinctColors from "distinct-colors";
 
 import "./modals.scss";
@@ -77,24 +77,24 @@ const ScoreGraphModal = function (props) {
     const [scoreGraph, setScoreGraph] = useState(null);
 
     const getGameDataSubset = (index) => {
-        let subset = {};
+        const subset = {};
         subset.players = [...gameData.players];
         subset.actions = gameData.actions.slice(0, index + 1);
         return subset;
-    }
+    };
 
     useEffect(() => {
-        let data = []
+        const data = [];
 
         gameData.actions.forEach((_, i) => {
-            let subsetGameData = getGameDataSubset(i);
+            const subsetGameData = getGameDataSubset(i);
             calculatePoints(subsetGameData);
 
             data.push({ "index": i });
             subsetGameData.players.forEach((player) => {
-                data[i][player.name] = player.points
-            })
-        })
+                data[i][player.name] = player.points;
+            });
+        });
 
         const palette = distinctColors({
             count: gameData.players.length,
@@ -109,10 +109,10 @@ const ScoreGraphModal = function (props) {
         const scoreGraph = {
             playerColors: palette.map(color => color.hex()),
             data: data
-        }
+        };
 
         setScoreGraph(scoreGraph);
-    }, [gameData])
+    }, [gameData]);
 
     return scoreGraph && (
         <div className="modal">
