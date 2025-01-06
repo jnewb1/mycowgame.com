@@ -19,7 +19,7 @@ const ACTIONS = {
 };
 
 const calculatePoints = (game) => {
-    game.players.forEach(player => player.points = 0);
+  game.players.forEach(player => player.points = 0);
 
   const applyAction = (action) => {
     if (action.player_object) {
@@ -27,24 +27,13 @@ const calculatePoints = (game) => {
     }
   };
 
-    const addPlayerToAction = (action) => {
-        action.player_object = game.players.filter(p => p.id == action.player)[0];
-    };
-
-    game.actions.forEach(addPlayerToAction);
-    game.actions.forEach(applyAction);
-    return game;
-    if (action.player) {
-      ACTIONS[action.game_action](action.player);
-    }
-  };
-
   const addPlayerToAction = (action) => {
-    action.player = game.players.filter(p => p.id == action.player)[0];
+      action.player_object = game.players.filter(p => p.id == action.player)[0];
   };
 
   game.actions.forEach(addPlayerToAction);
   game.actions.forEach(applyAction);
+
   return game;
 };
 
@@ -63,11 +52,6 @@ const useGame = (gameID) => {
             .on("postgres_changes", { event: "*", table: "players", filter: `game=eq.${gameID}` }, (payload) => fetch())
             .subscribe();
 
-          .channel("game")
-          .on("postgres_changes", {event: "*", table: "actions", filter: `game=eq.${gameID}`}, (payload) => fetch())
-          .on("postgres_changes", {event: "*", table: "players", filter: `game=eq.${gameID}`}, (payload) => fetch())
-          .subscribe();
-    
         return () => {
             channel.unsubscribe();
         };
