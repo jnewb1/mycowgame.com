@@ -13,14 +13,14 @@ import { useState } from "react";
 
 
 function ActionButton(props) {
-    let { icon, onClick, disabled, waiting } = props;
+    const { icon, onClick, disabled, waiting } = props;
 
     return <button
         className={"button player-card-action-button" + ((disabled || waiting) ? " disabled" : "")}
         onClick={onClick}
     >
         <FontAwesomeIcon className={"fa-icon"} icon={icon} />
-    </button>
+    </button>;
 }
 
 function PlayerCard(props) {
