@@ -89,7 +89,3 @@ const playerAction = (gameID, name, action) => {
 };
 
 export { useGame, createGame, fetchGame, getGame, createPlayer, removePlayer, playerAction, calculatePoints };
-  return getPlayer(gameID, name).then(player => supabase.from("actions").insert({game: gameID, player: player.id, game_action: action}));
-};
-
-export { useGame, createGame, fetchGame, getGame, createPlayer, removePlayer, playerAction };
