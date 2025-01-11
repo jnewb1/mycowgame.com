@@ -4,12 +4,13 @@ import { createPlayer, useGame, removePlayer } from "../api";
 import "./game.scss";
 
 import PlayerCard from "./playercard";
-import { ConfirmationModal, AlertModal, QRModal } from "../modals/modals";
+import { ConfirmationModal, AlertModal, QRModal, ScoreGraphModal } from "../modals/modals";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCopy,
-    faQrcode
+    faQrcode,
+    faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 
 import QRCode from 'qrcode';
@@ -19,6 +20,7 @@ function Game() {
     const [confirmModalOpen, setConfirmModalOpen] = useState(false);
     const [alertModalOpen, setAlertModalOpen] = useState(false);
     const [qrModalOpen, setQRModalOpen] = useState(false);
+    const [scoreGraphModalOpen, setScoreGraphModalOpen] = useState(false);
     const [playerToDelete, setPlayerToDelete] = useState("");
     const [newPlayerName, setNewPlayerName] = useState("");
 
@@ -66,6 +68,10 @@ function Game() {
             });
     };
 
+    const onShowScoreGraphs = () => {
+        setScoreGraphModalOpen(true);
+    };
+
     if (!gameData) {
         return (
             <div className="row margin-large">
@@ -76,8 +82,13 @@ function Game() {
 
     return (
         <>
-            <span className={(confirmModalOpen || alertModalOpen || qrModalOpen) ? "disabled" : ""}>
+            <span className={(confirmModalOpen || alertModalOpen || qrModalOpen || scoreGraphModalOpen) ? "disabled" : ""}>
+
                 <div className="row margin-small">
+                    <h1 id="share_label">{"Share Game:"}</h1>
+                </div>
+
+                <div className="row margin-extra-small">
                     <h2 id="game_id_label">{"Game ID: " + gameData.id}</h2>
                 </div>
 
@@ -90,6 +101,16 @@ function Game() {
                             <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
                         </button>
                     </div>
+                </div>
+
+                <div className="row margin-small">
+                    <h1 id="share_label">{"Show Score History:"}</h1>
+                </div>
+
+                <div className="row margin-extra-small">
+                    <button className="action_button" id="show_scores_button" onClick={() => onShowScoreGraphs()}>
+                        <FontAwesomeIcon icon={faChartLine}></FontAwesomeIcon>
+                    </button>
                 </div>
 
                 <div className="row margin-small" id="add_new_player_container">
@@ -153,6 +174,10 @@ function Game() {
                         setQRModalOpen(false);
                     }}
                 ></QRModal>
+            )}
+
+            {scoreGraphModalOpen && (
+                <ScoreGraphModal gameData={gameData} backAction={() => { setScoreGraphModalOpen(false);}} />
             )}
         </>
     );

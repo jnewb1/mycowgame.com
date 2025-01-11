@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "yarn start",
             "options": {
-                "cwd": "${workspaceFolder}/app",
+                "cwd": "${workspaceFolder}",
                 "env": {
                     "REACT_APP_API_URL": "${input:REACT_APP_API_URL}"
                 }

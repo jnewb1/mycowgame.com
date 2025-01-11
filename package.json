@@ -9,11 +9,13 @@
         "@fortawesome/free-solid-svg-icons": "*",
         "@fortawesome/react-fontawesome": "*",
         "@supabase/supabase-js": "*",
+        "distinct-colors": "^3.0.0",
         "eslint": "^9.17.0",
         "qrcode": "*",
         "react": "*",
         "react-dom": "*",
         "react-router-dom": "*",
+        "recharts": "^2.15.0",
         "sass": "*",
         "typescript": "*"
     },
