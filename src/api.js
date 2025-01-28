@@ -7,6 +7,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 
+
 const getData = (resp) => resp.data;
 
 const fetchGame = (gameID) => supabase.from("games").select('id, players (id, name, deleted), actions (created_at, game_action, player)').match({id: gameID}).maybeSingle().then(getData);

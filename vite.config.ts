@@ -6,7 +6,16 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
     // depending on your application, base can also be "/"
     base: '/',
-    plugins: [react(), svgr(), VitePWA({ registerType: 'autoUpdate', manifest: false})],
+    plugins: [
+        react(),
+        svgr(),
+        VitePWA({
+            registerType: 'autoUpdate',
+            manifest: false,
+            workbox: {
+                globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+            }
+        })],
     server: {    
         // this ensures that the browser opens upon server start
         open: true,
