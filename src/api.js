@@ -1,6 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
-import PlayerCard from './game/playercard';
+
+import useLocalStorage from "./useLocalStorage";
+
 
 const supabaseUrl = 'https://dmojlfmeqjdgiptlnvbs.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtb2psZm1lcWpkZ2lwdGxudmJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTA4NzQsImV4cCI6MjA1MDIyNjg3NH0.3axDi9Vd0wbWjsnN2rY2Jn3UvCCI7QalHrPLp4Nn-84';
@@ -40,7 +42,10 @@ const calculatePoints = (game) => {
 
 
 const useGame = (gameID) => {
+    const [syncTimeout, setSyncTimeout] = useState(null);
+
     const [gameData, setGameData] = useState(null);
+    const [queuedActions, setQueuedActions] = useLocalStorage("queuedActions", []);
 
     useEffect(() => {
         const fetch = () => fetchGame(gameID).then(calculatePoints).then(game => setGameData(game));
@@ -58,11 +63,25 @@ const useGame = (gameID) => {
         };
     }, [gameID]);
 
+
+    const syncActions = () => {
+      syncTimeout && clearTimeout(syncTimeout);
+      queuedActions.forEach((actionData) => {
+        supabase.from("actions").insert(actionData);
+      });
+  
+      setSyncTimeout(setTimeout(backgroundSync, 5000));
+    }
+
+    syncActions();
+
     const createPlayer = (name) => supabase.from("players").insert({game: gameID, name: name}).select();
     const removePlayer = (id) => supabase.from("players").update({deleted: true}).eq("id", id);
 
     const playerAction = (id, action) => {
-      return supabase.from("actions").insert({ game: gameID, player: id, game_action: action });
+      const actionData = { game: gameID, player: id, game_action: action };
+      setQueuedActions([...queuedActions, actionData]);
+      syncActions();
     };
 
     return {gameData, playerAction, createPlayer, removePlayer};
