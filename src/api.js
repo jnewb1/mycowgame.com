@@ -70,7 +70,7 @@ const useGame = (gameID) => {
         supabase.from("actions").insert(actionData);
       });
   
-      setSyncTimeout(setTimeout(backgroundSync, 5000));
+      setSyncTimeout(setTimeout(syncActions, 5000));
     }
 
     syncActions();
