@@ -22,7 +22,7 @@ function ActionButton(props) {
 }
 
 function PlayerCard(props) {
-    const { gameData, playerAction, player, onDeleteRequest } = props;
+    const { playerAction, player, onDeleteRequest } = props;
 
     const [actionsDisabled, setActionsDisabled] = useState(false);
 
@@ -47,7 +47,7 @@ function PlayerCard(props) {
                         <button
                             className="error-button"
                             id="player_card_delete_button"
-                            onClick={() => onDeleteRequest(player.name)}
+                            onClick={() => onDeleteRequest(player.id)}
                         >
                             DELETE
                         </button>
@@ -55,9 +55,9 @@ function PlayerCard(props) {
 
                     {/* My Cow Buttons */}
                     <div className="row margin-small">
-                        <ActionButton disabled={false} waiting={actionsDisabled} icon={faHorseHead} onClick={() => onPlayerAction(player.name, "cow")} />
-                        <ActionButton disabled={player.points > 1 ? "" : " disabled"} waiting={actionsDisabled} icon={faChurch} onClick={() => onPlayerAction(player.name, "church")} />
-                        <ActionButton disabled={false} waiting={actionsDisabled} icon={faSkull} onClick={() => onPlayerAction(player.name, "graveyard")} />
+                        <ActionButton disabled={false} waiting={actionsDisabled} icon={faHorseHead} onClick={() => onPlayerAction(player.id, "cow")} />
+                        <ActionButton disabled={player.points > 1 ? "" : " disabled"} waiting={actionsDisabled} icon={faChurch} onClick={() => onPlayerAction(player.id, "church")} />
+                        <ActionButton disabled={false} waiting={actionsDisabled} icon={faSkull} onClick={() => onPlayerAction(player.id, "graveyard")} />
                     </div>
                 </div>
             </div>

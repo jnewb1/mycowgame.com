@@ -56,13 +56,13 @@ function Game() {
         setQRModalOpen(true);
     };
 
-    const onDeleteRequest = (name) => {
+    const onDeleteRequest = (id) => {
         setConfirmModalOpen(true);
-        setPlayerToDelete(name);
+        setPlayerToDelete(id);
     };
 
-    const deletePlayer = (name) => {
-        removePlayer(name)
+    const deletePlayer = (id) => {
+        removePlayer(id)
             .then(() => {
                 setConfirmModalOpen(false);
             });
@@ -140,7 +140,6 @@ function Game() {
                 {gameData.players.filter((player) => !player.deleted).map((player) => (
                     <PlayerCard
                         key={player.name}
-                        gameData={gameData}
                         player={player}
                         playerAction={playerAction}
                         onDeleteRequest={onDeleteRequest}

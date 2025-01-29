@@ -123,7 +123,7 @@ const ScoreGraphModal = function (props) {
                             <CartesianGrid strokeDasharray="5 5" />
                             <XAxis dataKey="index" tick={{ fontSize: 40 }} />
                             <YAxis tick={{ fontSize: 40 }} />
-                            {gameData.players.map((player, i) => (
+                            {gameData.players.filter(player => !player.deleted).map((player, i) => (
                                 <Line type="monotone" key={player.name} dataKey={player.name} stroke={scoreGraph.playerColors[i]} strokeWidth="8" />
                             ))}
                             <Tooltip />

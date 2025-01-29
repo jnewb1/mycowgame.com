@@ -58,12 +58,11 @@ const useGame = (gameID) => {
         };
     }, [gameID]);
 
-    const getPlayer = (name) => supabase.from("players").select().match({game: gameID, name: name}).maybeSingle().then(getData);
     const createPlayer = (name) => supabase.from("players").insert({game: gameID, name: name}).select();
-    const removePlayer = (name) => getPlayer(name).then(player => supabase.from("players").update({deleted: true}).eq("id", player.id));
+    const removePlayer = (id) => supabase.from("players").update({deleted: true}).eq("id", id);
 
-    const playerAction = (name, action) => {
-      return getPlayer(name).then(player => supabase.from("actions").insert({ game: gameID, player: player.id, game_action: action }));
+    const playerAction = (id, action) => {
+      return supabase.from("actions").insert({ game: gameID, player: id, game_action: action });
     };
 
     return {gameData, playerAction, createPlayer, removePlayer};
