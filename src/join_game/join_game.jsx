@@ -14,7 +14,7 @@ const JoinGame = function () {
                 navigate(`/game/${gameID}`);
             } else {
                 window.alert(
-                    "ERROR - Invalid key, game does not exist\nKey should be 8 characters long"
+                    "ERROR - Invalid key, game does not exist\nKey should be 5 characters long"
                 );
             }
         });

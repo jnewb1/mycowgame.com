@@ -7,8 +7,6 @@ import {
     faSkull,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { playerAction } from "../api";
-
 import { useState } from "react";
 
 
@@ -24,13 +22,13 @@ function ActionButton(props) {
 }
 
 function PlayerCard(props) {
-    const { gameData, player, onDeleteRequest } = props;
+    const { gameData, playerAction, player, onDeleteRequest } = props;
 
     const [actionsDisabled, setActionsDisabled] = useState(false);
 
     const onPlayerAction = (name, action) => {
         setActionsDisabled(true);
-        playerAction(gameData.id, name, action).then(({ data }) => {
+        playerAction(name, action).then(({ data }) => {
             setActionsDisabled(false);
         });
     };

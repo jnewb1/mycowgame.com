@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { createPlayer, useGame, removePlayer } from "../api";
+import { useGame } from "../api";
 import "./game.scss";
 
 import PlayerCard from "./playercard";
@@ -24,7 +24,7 @@ function Game() {
     const [playerToDelete, setPlayerToDelete] = useState("");
     const [newPlayerName, setNewPlayerName] = useState("");
 
-    const gameData = useGame(id);
+    const {gameData, playerAction, createPlayer, removePlayer} = useGame(id);
 
     const onAddPlayer = (name) => {
         let playerNameTaken = false;
@@ -34,7 +34,7 @@ function Game() {
         }
 
         if (playerNameTaken === false) {
-            createPlayer(gameData.id, name).then(({ data }) => {
+            createPlayer(name).then(({ data }) => {
 
             });
         } else {
@@ -62,7 +62,7 @@ function Game() {
     };
 
     const deletePlayer = (name) => {
-        removePlayer(gameData.id, name)
+        removePlayer(name)
             .then(() => {
                 setConfirmModalOpen(false);
             });
@@ -142,6 +142,7 @@ function Game() {
                         key={player.name}
                         gameData={gameData}
                         player={player}
+                        playerAction={playerAction}
                         onDeleteRequest={onDeleteRequest}
                     ></PlayerCard>
                 ))}
