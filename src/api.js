@@ -7,6 +7,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 
+
 const getData = (resp) => resp.data;
 
 const fetchGame = (gameID) => supabase.from("games").select('id, players (id, name, deleted), actions (created_at, game_action, player)').match({id: gameID}).maybeSingle().then(getData);
@@ -39,10 +40,10 @@ const calculatePoints = (game) => {
 
 
 const useGame = (gameID) => {
-    const [game, setGame] = useState(null);
+    const [gameData, setGameData] = useState(null);
 
     useEffect(() => {
-        const fetch = () => fetchGame(gameID).then(calculatePoints).then(game => setGame(game));
+        const fetch = () => fetchGame(gameID).then(calculatePoints).then(game => setGameData(game));
 
         fetch();
 
@@ -57,19 +58,17 @@ const useGame = (gameID) => {
         };
     }, [gameID]);
 
-    return game;
+    const createPlayer = (name) => supabase.from("players").insert({game: gameID, name: name}).select();
+    const removePlayer = (id) => supabase.from("players").update({deleted: true}).eq("id", id);
+
+    const playerAction = (id, action) => {
+      return supabase.from("actions").insert({ game: gameID, player: id, game_action: action });
+    };
+
+    return {gameData, playerAction, createPlayer, removePlayer};
 };
 
 const getGame = (gameID) => supabase.from("games").select().match({ id: gameID });
-
 const createGame = () => supabase.from("games").insert({}).select();
 
-const getPlayer = (gameID, name) => supabase.from("players").select().match({game: gameID, name: name}).maybeSingle().then(getData);
-const createPlayer = (gameID, name) => supabase.from("players").insert({game: gameID, name: name}).select();
-const removePlayer = (gameID, name) => getPlayer(gameID, name).then(player => supabase.from("players").update({deleted: true}).eq("id", player.id));
-
-const playerAction = (gameID, name, action) => {
-    return getPlayer(gameID, name).then(player => supabase.from("actions").insert({ game: gameID, player: player.id, game_action: action }));
-};
-
-export { useGame, createGame, fetchGame, getGame, createPlayer, removePlayer, playerAction, calculatePoints };
+export { useGame, createGame, getGame, calculatePoints };
